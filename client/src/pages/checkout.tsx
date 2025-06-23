@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { ArrowLeft, Download, Printer } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Link } from 'wouter';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Header from '@/components/Header';
 import DrawingCanvas from '@/components/DrawingCanvas';
+import ReceiptModal from '@/components/ReceiptModal';
 import { useCart } from '@/hooks/use-cart';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,7 +16,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 
@@ -139,6 +139,7 @@ export default function Checkout() {
   const handleCloseReceipt = () => {
     setShowReceipt(false);
     clearCart();
+    window.location.href = '/';
   };
 
   if (count === 0) {
