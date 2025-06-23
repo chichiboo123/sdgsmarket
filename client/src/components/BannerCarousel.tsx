@@ -54,6 +54,20 @@ export default function BannerCarousel() {
                     <span className={slide.buttonColor}>{slide.buttonText}</span>
                   </Button>
                 </a>
+              ) : slide.isExternal && slide.externalUrl ? (
+                <a
+                  href={slide.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="bg-white hover:bg-gray-100 transition-colors duration-200"
+                  >
+                    <span className={slide.buttonColor}>{slide.buttonText}</span>
+                  </Button>
+                </a>
               ) : null}
             </div>
           </div>
