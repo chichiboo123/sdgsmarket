@@ -22,12 +22,12 @@ export default function Home() {
         {/* SDG Goals Section */}
         <section id="goals" className="mb-12">
           <div className="text-center mb-8">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>판매중인 상품</h2>
-            <p className="text-xl text-gray-700 font-medium" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>SDGs 지속가능발전목표 17개</p>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>판매중인 상품</h2>
+            <p className="text-lg md:text-xl text-gray-700 font-medium" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>SDGs 지속가능발전목표 17개</p>
           </div>
 
           {/* SDG Product Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {sdgGoals.map((goal) => (
               <SDGCard key={goal.id} goal={goal} />
             ))}

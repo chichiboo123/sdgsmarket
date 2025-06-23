@@ -42,7 +42,7 @@ export default function BannerCarousel() {
 
   return (
     <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden">
-      <div className="relative h-64 md:h-80">
+      <div className="relative h-48 md:h-64 lg:h-80">
         {bannerSlides.map((slide, index) =>
           index === currentSlide ? (
             <div

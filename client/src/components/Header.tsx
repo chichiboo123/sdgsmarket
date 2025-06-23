@@ -9,16 +9,16 @@ export default function Header() {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20 pt-6 pb-4">
           {/* Logo */}
           <Link href="/">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <img src={logoPath} alt="SDGs 마켓 로고" className="w-12 h-12" />
+            <div className="flex items-center gap-2 md:gap-3 cursor-pointer">
+              <img src={logoPath} alt="SDGs 마켓 로고" className="w-10 h-10 md:w-12 md:h-12" />
               <div>
-                <h1 className="site-title">
+                <h1 className="site-title text-xl md:text-2xl lg:text-3xl">
                   SDGs 마켓
                 </h1>
-                <p className="text-sm text-gray-600 font-medium">지속가능발전목표 쇼핑몰</p>
+                <p className="text-xs md:text-sm text-gray-600 font-medium">지속가능발전목표 쇼핑몰</p>
               </div>
             </div>
           </Link>
