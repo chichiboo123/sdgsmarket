@@ -59,6 +59,7 @@ export default function Checkout() {
   const [showReceipt, setShowReceipt] = useState(false);
   const [receiptData, setReceiptData] = useState<any>(null);
   const [drawingData, setDrawingData] = useState<string>('');
+  const [uploadedImage, setUploadedImage] = useState<string>('');
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -88,7 +89,7 @@ export default function Checkout() {
 
       const actionPlanData = {
         sdgGoals: items.map(item => item.id),
-        planMethod: data.planMethod,
+        planMethod: data.planMethod.join(','),
         actionPlanText: data.actionPlanText || '',
         drawingData: drawingData,
         deliveryMemos: data.deliveryMemos || [],
@@ -404,34 +405,69 @@ export default function Checkout() {
                   )}
                 />
 
-                {(planMethod === 'text' || planMethod === 'both') && (
-                  <FormField
-                    control={form.control}
-                    name="actionPlanText"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>나의 실천계획</FormLabel>
-                        <FormControl>
-                          <Textarea
-                            placeholder="선택한 SDGs 목표를 위해 어떤 실천을 할 것인지 구체적으로 작성해보세요."
-                            className="min-h-[120px]"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                )}
+                <div className="space-y-6">
+                  <h4 className="font-medium text-gray-900">나의 실천계획</h4>
+                  
+                  {/* Text Input */}
+                  {form.watch('planMethod')?.includes('text') && (
+                    <FormField
+                      control={form.control}
+                      name="actionPlanText"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>글로 작성</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="SDGs 목표 달성을 위한 구체적인 실천계획을 작성해주세요..."
+                              className="min-h-32"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
 
-                {(planMethod === 'drawing' || planMethod === 'both') && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      그림으로 실천계획 그리기
-                    </label>
-                    <DrawingCanvas onDrawingChange={setDrawingData} />
-                  </div>
-                )}
+                  {/* Drawing Canvas */}
+                  {form.watch('planMethod')?.includes('drawing') && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        그림으로 작성
+                      </label>
+                      <DrawingCanvas onDrawingChange={setDrawingData} />
+                    </div>
+                  )}
+
+                  {/* Image Upload */}
+                  {form.watch('planMethod')?.includes('image') && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        이미지 업로드
+                      </label>
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (event) => {
+                              setUploadedImage(event.target?.result as string);
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
+                        className="mb-2"
+                      />
+                      {uploadedImage && (
+                        <div className="mt-2">
+                          <img src={uploadedImage} alt="업로드된 이미지" className="max-w-full h-48 object-contain border rounded" />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
 

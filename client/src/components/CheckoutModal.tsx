@@ -89,7 +89,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
 
       const actionPlanData = {
         sdgGoals: items.map(item => item.id),
-        planMethod: data.planMethod,
+        planMethod: data.planMethod.join(','),
         actionPlanText: data.actionPlanText || '',
         drawingData: drawingData,
         deliveryMemos: data.deliveryMemos || [],
@@ -351,66 +351,111 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
 
               {/* Action Plan */}
               <div className="bg-gray-50 p-4 rounded-xl">
-                <h4 className="font-semibold text-gray-900 mb-4">실천계획</h4>
-                <div className="space-y-4">
+                <h4 className="font-semibold text-gray-900 mb-4">실천계획 입력</h4>
+                <div className="space-y-6">
                   <FormField
                     control={form.control}
                     name="planMethod"
-                    render={({ field }) => (
+                    render={() => (
                       <FormItem>
                         <FormLabel>실천계획 방법 선택</FormLabel>
-                        <FormControl>
-                          <RadioGroup
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                            className="flex space-x-4"
-                          >
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="text" id="text" />
-                              <label htmlFor="text" className="text-sm">글로 작성</label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="drawing" id="drawing" />
-                              <label htmlFor="drawing" className="text-sm">그림으로 작성</label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value="both" id="both" />
-                              <label htmlFor="both" className="text-sm">글과 그림 모두</label>
-                            </div>
-                          </RadioGroup>
-                        </FormControl>
+                        <div className="space-y-2">
+                          {planMethods.map((method) => (
+                            <FormField
+                              key={method.id}
+                              control={form.control}
+                              name="planMethod"
+                              render={({ field }) => (
+                                <FormItem className="flex items-center space-x-2">
+                                  <FormControl>
+                                    <Checkbox
+                                      checked={field.value?.includes(method.id)}
+                                      onCheckedChange={(checked) => {
+                                        const value = field.value || [];
+                                        if (checked) {
+                                          field.onChange([...value, method.id]);
+                                        } else {
+                                          field.onChange(value.filter((v) => v !== method.id));
+                                        }
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormLabel className="text-sm font-normal">
+                                    {method.label}
+                                  </FormLabel>
+                                </FormItem>
+                              )}
+                            />
+                          ))}
+                        </div>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
 
-                  {(planMethod === 'text' || planMethod === 'both') && (
-                    <FormField
-                      control={form.control}
-                      name="actionPlanText"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>나의 실천계획</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="선택한 SDGs 목표를 위해 어떤 실천을 할 것인지 구체적으로 작성해보세요."
-                              rows={4}
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  )}
+                  <div className="space-y-6">
+                    <h4 className="font-medium text-gray-900">나의 실천계획</h4>
+                    
+                    {/* Text Input */}
+                    {form.watch('planMethod')?.includes('text') && (
+                      <FormField
+                        control={form.control}
+                        name="actionPlanText"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>글로 작성</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder="SDGs 목표 달성을 위한 구체적인 실천계획을 작성해주세요..."
+                                className="min-h-32"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
 
-                  {(planMethod === 'drawing' || planMethod === 'both') && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        그림으로 실천계획 그리기
-                      </label>
-                      <DrawingCanvas onDrawingChange={setDrawingData} />
-                    </div>
-                  )}
+                    {/* Drawing Canvas */}
+                    {form.watch('planMethod')?.includes('drawing') && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          그림으로 작성
+                        </label>
+                        <DrawingCanvas onDrawingChange={setDrawingData} />
+                      </div>
+                    )}
+
+                    {/* Image Upload */}
+                    {form.watch('planMethod')?.includes('image') && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          이미지 업로드
+                        </label>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onload = (event) => {
+                                setUploadedImage(event.target?.result as string);
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                          className="mb-2"
+                        />
+                        {uploadedImage && (
+                          <div className="mt-2">
+                            <img src={uploadedImage} alt="업로드된 이미지" className="max-w-full h-48 object-contain border rounded" />
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
