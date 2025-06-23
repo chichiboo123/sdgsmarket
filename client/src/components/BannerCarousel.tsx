@@ -43,33 +43,33 @@ export default function BannerCarousel() {
   return (
     <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden">
       <div className="relative h-64 md:h-80">
-        {bannerSlides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={`carousel-slide absolute inset-0 bg-gradient-to-r ${slide.background} flex items-center justify-between px-8 md:px-16 ${
-              index === currentSlide ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            <div className="text-white max-w-lg">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h2>
-              <p className="text-lg mb-6">{slide.subtitle}</p>
-              <a
-                href={getSlideUrl(slide.id)}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="bg-white hover:bg-gray-100 transition-colors duration-200"
+        {bannerSlides.map((slide, index) =>
+          index === currentSlide ? (
+            <div
+              key={slide.id}
+              className={`carousel-slide absolute inset-0 bg-gradient-to-r ${slide.background} flex items-center justify-between px-8 md:px-16`}
+            >
+              <div className="text-white max-w-lg">
+                <h2 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h2>
+                <p className="text-lg mb-6">{slide.subtitle}</p>
+                <a
+                  href={getSlideUrl(slide.id)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span className={slide.buttonColor}>자세히 살펴보기</span>
-                  <ExternalLink className="w-4 h-4 ml-2" />
-                </Button>
-              </a>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="bg-white hover:bg-gray-100 transition-colors duration-200"
+                  >
+                    <span className={slide.buttonColor}>자세히 살펴보기</span>
+                    <ExternalLink className="w-4 h-4 ml-2" />
+                  </Button>
+                </a>
+              </div>
             </div>
-          </div>
-        ))}
+          ) : null
+        )}
       </div>
 
       {/* Carousel Navigation */}
