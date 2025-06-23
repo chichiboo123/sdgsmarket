@@ -24,6 +24,7 @@ const formSchema = z.object({
   planMethod: z.enum(['text', 'drawing', 'both']),
   actionPlanText: z.string().optional(),
   deliveryMemos: z.array(z.string()).optional(),
+  paymentMethod: z.array(z.string()).min(1, '결제수단을 선택하세요'),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -33,6 +34,12 @@ const deliveryOptions = [
   "문 앞에 놓아주세요",
   "실천하지 않을시 알람주세요",
   "부재시 친구에게 맡겨주세요"
+];
+
+const paymentMethods = [
+  { id: "think", label: "생각하기", emoji: "🤔" },
+  { id: "empathize", label: "공감하기", emoji: "💝" },
+  { id: "action", label: "행동하기", emoji: "🚀" }
 ];
 
 interface CheckoutModalProps {
@@ -56,6 +63,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
       planMethod: 'text',
       actionPlanText: '',
       deliveryMemos: [],
+      paymentMethod: [],
     },
   });
 
@@ -99,19 +107,8 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
 
       onReceiptGenerated(receiptData);
       onOpenChange(false);
-
-      toast({
-        title: "실천계획이 저장되었습니다!",
-        description: "영수증을 확인하고 다운로드하세요.",
-        duration: 3000,
-      });
     } catch (error) {
-      toast({
-        title: "오류가 발생했습니다",
-        description: "다시 시도해주세요.",
-        variant: "destructive",
-        duration: 3000,
-      });
+      console.error('Error submitting form:', error);
     }
   };
 
@@ -226,7 +223,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
 
               {/* Delivery Info */}
               <div className="bg-gray-50 p-4 rounded-xl">
-                <h4 className="font-semibold text-gray-900 mb-4">배송지 정보</h4>
+                <h4 className="font-semibold text-gray-900 mb-4">배송 정보(선택)</h4>
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">학교명</label>
@@ -237,7 +234,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
                     name="deliveryMemos"
                     render={() => (
                       <FormItem>
-                        <FormLabel>배송 메모</FormLabel>
+                        <FormLabel>배송 메모(선택)</FormLabel>
                         <div className="space-y-2">
                           {deliveryOptions.map((option) => (
                             <FormField
@@ -271,6 +268,66 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
                     )}
                   />
                 </div>
+              </div>
+
+              {/* Order Info */}
+              <div className="bg-gray-50 p-4 rounded-xl">
+                <h4 className="font-semibold text-gray-900 mb-4">주문상품 정보</h4>
+                <div className="space-y-3">
+                  {items.map((item) => (
+                    <div key={item.id} className="flex items-center space-x-3 p-3 bg-white rounded-lg border">
+                      <div className="text-2xl">{item.icon}</div>
+                      <div className="flex-1">
+                        <h5 className="font-medium text-gray-900">{item.title}</h5>
+                        <p className="text-sm text-gray-600">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Payment Method */}
+              <div className="bg-gray-50 p-4 rounded-xl">
+                <h4 className="font-semibold text-gray-900 mb-4">결제수단 선택(실천방식)</h4>
+                <FormField
+                  control={form.control}
+                  name="paymentMethod"
+                  render={() => (
+                    <FormItem>
+                      <div className="space-y-2">
+                        {paymentMethods.map((method) => (
+                          <FormField
+                            key={method.id}
+                            control={form.control}
+                            name="paymentMethod"
+                            render={({ field }) => (
+                              <FormItem className="flex items-center space-x-2">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(method.id)}
+                                    onCheckedChange={(checked) => {
+                                      const value = field.value || [];
+                                      if (checked) {
+                                        field.onChange([...value, method.id]);
+                                      } else {
+                                        field.onChange(value.filter((v) => v !== method.id));
+                                      }
+                                    }}
+                                  />
+                                </FormControl>
+                                <FormLabel className="text-sm font-normal flex items-center">
+                                  <span className="mr-2">{method.emoji}</span>
+                                  {method.label}
+                                </FormLabel>
+                              </FormItem>
+                            )}
+                          />
+                        ))}
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
 
               {/* Action Plan */}

@@ -27,6 +27,7 @@ const formSchema = z.object({
   planMethod: z.enum(['text', 'drawing', 'both']),
   actionPlanText: z.string().optional(),
   deliveryMemos: z.array(z.string()).optional(),
+  paymentMethod: z.array(z.string()).min(1, '결제수단을 선택하세요'),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -36,6 +37,12 @@ const deliveryOptions = [
   "문 앞에 놓아주세요",
   "실천하지 않을시 알람주세요",
   "부재시 친구에게 맡겨주세요"
+];
+
+const paymentMethods = [
+  { id: "think", label: "생각하기", emoji: "🤔" },
+  { id: "empathize", label: "공감하기", emoji: "💝" },
+  { id: "action", label: "행동하기", emoji: "🚀" }
 ];
 
 export default function Checkout() {
@@ -55,6 +62,7 @@ export default function Checkout() {
       planMethod: 'text',
       actionPlanText: '',
       deliveryMemos: [],
+      paymentMethod: [],
     },
   });
 
@@ -97,19 +105,8 @@ export default function Checkout() {
       });
 
       setShowReceipt(true);
-
-      toast({
-        title: "실천계획이 저장되었습니다!",
-        description: "영수증을 확인하고 다운로드하세요.",
-        duration: 3000,
-      });
     } catch (error) {
-      toast({
-        title: "오류가 발생했습니다",
-        description: "다시 시도해주세요.",
-        variant: "destructive",
-        duration: 3000,
-      });
+      console.error('Error submitting form:', error);
     }
   };
 
