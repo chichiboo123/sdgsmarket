@@ -24,8 +24,10 @@ const formSchema = z.object({
   school: z.string().min(1, '학교명을 입력하세요'),
   grade: z.string().min(1, '학년을 선택하세요'),
   class: z.string().optional(),
-  planMethod: z.enum(['text', 'drawing', 'both']),
+  deliverySchool: z.string().optional(),
+  planMethod: z.array(z.string()).min(1, '실천계획 방법을 선택하세요'),
   actionPlanText: z.string().optional(),
+  imageUpload: z.any().optional(),
   deliveryMemos: z.array(z.string()).optional(),
   paymentMethod: z.array(z.string()).min(1, '결제수단을 선택하세요'),
 });
@@ -45,6 +47,12 @@ const paymentMethods = [
   { id: "action", label: "행동하기", emoji: "🚀" }
 ];
 
+const planMethods = [
+  { id: "text", label: "글로 작성" },
+  { id: "drawing", label: "그림으로 작성" },
+  { id: "image", label: "이미지 업로드" }
+];
+
 export default function Checkout() {
   const { items, count, clearCart } = useCart();
   const { toast } = useToast();
@@ -59,7 +67,8 @@ export default function Checkout() {
       school: '',
       grade: '',
       class: '',
-      planMethod: 'text',
+      deliverySchool: '',
+      planMethod: [],
       actionPlanText: '',
       deliveryMemos: [],
       paymentMethod: [],
@@ -237,10 +246,19 @@ export default function Checkout() {
                 <CardTitle>배송 정보(선택)</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">학교명</label>
-                  <Input value="학교" readOnly className="bg-gray-100" />
-                </div>
+                <FormField
+                  control={form.control}
+                  name="deliverySchool"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>학교명</FormLabel>
+                      <FormControl>
+                        <Input placeholder="학교명을 입력하세요" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="deliveryMemos"

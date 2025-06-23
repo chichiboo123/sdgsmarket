@@ -21,7 +21,8 @@ const formSchema = z.object({
   school: z.string().min(1, '학교명을 입력하세요'),
   grade: z.string().min(1, '학년을 선택하세요'),
   class: z.string().optional(),
-  planMethod: z.enum(['text', 'drawing', 'both']),
+  deliverySchool: z.string().optional(),
+  planMethod: z.array(z.string()).min(1, '실천계획 방법을 선택하세요'),
   actionPlanText: z.string().optional(),
   deliveryMemos: z.array(z.string()).optional(),
   paymentMethod: z.array(z.string()).min(1, '결제수단을 선택하세요'),
@@ -42,6 +43,12 @@ const paymentMethods = [
   { id: "action", label: "행동하기", emoji: "🚀" }
 ];
 
+const planMethods = [
+  { id: "text", label: "글로 작성" },
+  { id: "drawing", label: "그림으로 작성" },
+  { id: "image", label: "이미지 업로드" }
+];
+
 interface CheckoutModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -52,6 +59,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
   const { items, count } = useCart();
   const { toast } = useToast();
   const [drawingData, setDrawingData] = useState<string>('');
+  const [uploadedImage, setUploadedImage] = useState<string>('');
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -60,7 +68,8 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
       school: '',
       grade: '',
       class: '',
-      planMethod: 'text',
+      deliverySchool: '',
+      planMethod: [],
       actionPlanText: '',
       deliveryMemos: [],
       paymentMethod: [],
