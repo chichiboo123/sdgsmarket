@@ -99,7 +99,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
 
       onReceiptGenerated(receiptData);
       onOpenChange(false);
-      
+
       toast({
         title: "실천계획이 저장되었습니다!",
         description: "영수증을 확인하고 다운로드하세요.",
@@ -147,7 +147,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
             </Button>
           </div>
         </DialogHeader>
-        
+
         <div className="p-6">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -173,9 +173,9 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
                     name="school"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>학교명 *</FormLabel>
+                        <FormLabel>배송지</FormLabel>
                         <FormControl>
-                          <Input placeholder="학교명을 입력하세요" {...field} />
+                          <Input placeholder="배송지를 입력하세요" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

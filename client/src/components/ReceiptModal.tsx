@@ -197,12 +197,20 @@ export default function ReceiptModal({ open, onOpenChange, receiptData, onComple
               </div>
             </div>
             
-            {receiptData.actionPlan.actionPlanText && (
+            {(receiptData.actionPlan.actionPlanText || receiptData.actionPlan.drawingData) && (
               <div className="mb-6">
                 <h3 className="font-semibold mb-3">나의 실천계획</h3>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="whitespace-pre-wrap">{receiptData.actionPlan.actionPlanText}</p>
-                </div>
+                {receiptData.actionPlan.actionPlanText && (
+                  <div className="bg-blue-50 p-4 rounded-lg mb-4">
+                    <p className="whitespace-pre-wrap">{receiptData.actionPlan.actionPlanText}</p>
+                  </div>
+                )}
+                {receiptData.actionPlan.drawingData && (
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-2">그림으로 그린 실천계획:</p>
+                    <img src={receiptData.actionPlan.drawingData} alt="실천계획 그림" className="max-w-full h-auto border border-gray-200 rounded" />
+                  </div>
+                )}
               </div>
             )}
             

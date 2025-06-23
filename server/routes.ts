@@ -71,9 +71,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       doc.fontSize(10).text(`총 목표 수: ${sdgGoals.length}개`, 50, yPos + 10);
       
       // Action plan
-      if (actionPlan.actionPlanText) {
+      if (actionPlan.actionPlanText || actionPlan.drawingData) {
         doc.fontSize(14).text('나의 실천계획', 50, yPos + 40);
-        doc.fontSize(10).text(actionPlan.actionPlanText, 50, yPos + 60, { width: 500 });
+        let planYPos = yPos + 60;
+        
+        if (actionPlan.actionPlanText) {
+          doc.fontSize(10).text(actionPlan.actionPlanText, 50, planYPos, { width: 500 });
+          planYPos += 40;
+        }
+        
+        if (actionPlan.drawingData) {
+          doc.fontSize(10).text('그림으로 그린 실천계획:', 50, planYPos);
+          planYPos += 20;
+          // Note: PDF에서 이미지 처리는 복잡하므로 텍스트로 표시
+          doc.fontSize(8).text('[그림 데이터가 포함되어 있습니다]', 50, planYPos);
+        }
       }
       
       // Footer
@@ -152,12 +164,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
               </div>
             </div>
             
-            ${actionPlan.actionPlanText ? `
+            ${(actionPlan.actionPlanText || actionPlan.drawingData) ? `
               <div class="section">
                 <h3>나의 실천계획</h3>
-                <div class="action-plan">
-                  <p>${actionPlan.actionPlanText}</p>
-                </div>
+                ${actionPlan.actionPlanText ? `
+                  <div class="action-plan">
+                    <p>${actionPlan.actionPlanText}</p>
+                  </div>
+                ` : ''}
+                ${actionPlan.drawingData ? `
+                  <div class="action-plan" style="margin-top: 10px;">
+                    <p style="font-size: 12px; color: #666; margin-bottom: 10px;">그림으로 그린 실천계획:</p>
+                    <img src="${actionPlan.drawingData}" alt="실천계획 그림" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px;" />
+                  </div>
+                ` : ''}
               </div>
             ` : ''}
             

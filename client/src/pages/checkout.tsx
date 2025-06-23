@@ -97,7 +97,7 @@ export default function Checkout() {
       });
 
       setShowReceipt(true);
-      
+
       toast({
         title: "실천계획이 저장되었습니다!",
         description: "영수증을 확인하고 다운로드하세요.",
@@ -162,7 +162,7 @@ export default function Checkout() {
   return (
     <div className="bg-gray-50 min-h-screen">
       <Header />
-      
+
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-4">
@@ -203,9 +203,9 @@ export default function Checkout() {
                     name="school"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>학교명 *</FormLabel>
+                        <FormLabel>배송지</FormLabel>
                         <FormControl>
-                          <Input placeholder="학교명을 입력하세요" {...field} />
+                          <Input placeholder="배송지를 입력하세요" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -256,7 +256,7 @@ export default function Checkout() {
             {/* Delivery Info */}
             <Card>
               <CardHeader>
-                <CardTitle>배송지 정보</CardTitle>
+                <CardTitle>배송 메모(선택)</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
@@ -388,7 +388,7 @@ export default function Checkout() {
             <DialogHeader>
               <DialogTitle>실천 영수증</DialogTitle>
             </DialogHeader>
-            
+
             {receiptData && (
               <div className="space-y-6">
                 <div className="bg-white p-8 border-2 border-dashed border-gray-300 rounded-lg">
@@ -397,7 +397,7 @@ export default function Checkout() {
                     <p className="text-lg font-semibold">실천 영수증</p>
                     <p className="text-sm text-gray-600">{receiptData.date} {receiptData.time}</p>
                   </div>
-                  
+
                   <div className="mb-6">
                     <h3 className="font-semibold mb-3">주문자 정보</h3>
                     <div className="bg-gray-50 p-4 rounded-lg space-y-1">
@@ -406,7 +406,7 @@ export default function Checkout() {
                       <p><span className="font-medium">학년/반:</span> {receiptData.student.grade}학년 {receiptData.student.class}</p>
                     </div>
                   </div>
-                  
+
                   <div className="mb-6">
                     <h3 className="font-semibold mb-3">선택한 SDGs 목표</h3>
                     <div className="space-y-2">
@@ -424,7 +424,7 @@ export default function Checkout() {
                       <p className="font-bold">총 목표 수: {receiptData.sdgGoals.length}개</p>
                     </div>
                   </div>
-                  
+
                   {receiptData.actionPlan.actionPlanText && (
                     <div className="mb-6">
                       <h3 className="font-semibold mb-3">나의 실천계획</h3>
@@ -433,7 +433,7 @@ export default function Checkout() {
                       </div>
                     </div>
                   )}
-                  
+
                   <div className="text-center border-t border-gray-300 pt-4 text-sm text-gray-600">
                     <p>이 영수증은 여러분의 지속가능발전목표 실천 의지를 나타내는 소중한 증명서입니다.</p>
                     <p className="mt-2 font-semibold text-orange-500">함께 만들어가는 더 나은 세상! 🌍</p>
