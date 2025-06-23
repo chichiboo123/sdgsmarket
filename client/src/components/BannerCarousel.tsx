@@ -4,6 +4,19 @@ import { Link } from 'wouter';
 import { bannerSlides } from '@/lib/sdgData';
 import { Button } from '@/components/ui/button'; // Assuming a Button component exists
 
+const getSlideUrl = (slideId: string): string => {
+  switch (slideId) {
+    case 'sdg-intro':
+      return 'https://www.odakorea.go.kr/teen/cont/ContShow?cont_seq=32';
+    case 'sdg-goals':
+      return 'https://www.odakorea.go.kr/teen/NationalSustainableDevelopmentGoals';
+    case 'sdg-animation':
+      return 'https://youtu.be/kwzSaqlcpHI?feature=shared';
+    default:
+      return '#';
+  }
+};
+
 export default function BannerCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -41,13 +54,7 @@ export default function BannerCarousel() {
               <h2 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h2>
               <p className="text-lg mb-6">{slide.subtitle}</p>
               <a
-                href={
-                  slide.id === 'sdg-intro' 
-                    ? 'https://www.odakorea.go.kr/teen/cont/ContShow?cont_seq=32'
-                    : slide.id === 'sdg-goals'
-                    ? 'https://www.odakorea.go.kr/teen/NationalSustainableDevelopmentGoals'
-                    : 'https://youtu.be/kwzSaqlcpHI?feature=shared'
-                }
+                href={getSlideUrl(slide.id)}
                 target="_blank"
                 rel="noopener noreferrer"
               >
