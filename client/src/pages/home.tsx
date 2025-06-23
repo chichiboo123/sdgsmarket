@@ -21,9 +21,9 @@ export default function Home() {
 
         {/* SDG Goals Section */}
         <section id="goals" className="mb-12">
-          <div className="text-center mb-12 py-8">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>판매중인 상품</h2>
-            <p className="text-xl text-gray-700 font-medium mb-4" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>SDGs 지속가능발전목표 17개</p>
+          <div className="text-center mb-8">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>판매중인 상품</h2>
+            <p className="text-xl text-gray-700 font-medium" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>SDGs 지속가능발전목표 17개</p>
           </div>
 
           {/* SDG Product Grid */}
