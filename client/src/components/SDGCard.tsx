@@ -48,7 +48,7 @@ export default function SDGCard({ goal }: SDGCardProps) {
           </span>
         </div>
         <h3 className="font-bold text-lg text-gray-900 mb-2">{goal.title}</h3>
-        <p className="text-sm text-gray-600 mb-4">{goal.subtitle}</p>
+        <p className="text-sm text-gray-600 mb-4">{goal.description}</p>
         <div className="flex space-x-2">
           <button
             onClick={handleAddToCart}

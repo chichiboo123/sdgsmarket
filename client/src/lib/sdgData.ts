@@ -14,7 +14,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "모든 형태의 빈곤 종료", 
     color: "#e5243b", 
     icon: "🏠",
-    description: "전 세계 모든 형태의 빈곤을 종료합니다."
+    description: "모든 곳에서 모든 형태의 빈곤 종식"
   },
   { 
     id: 2, 
@@ -22,7 +22,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "기아 종료, 식량안보 확보", 
     color: "#dda63a", 
     icon: "🌾",
-    description: "기아를 종료하고, 식량 안보를 확보하며 개선된 영양상태를 달성하고 지속가능한 농업을 증진합니다."
+    description: "기아 종식, 식량안보 달성, 개선된 영양상태의 달성과 지속가능한 농업 강화"
   },
   { 
     id: 3, 
@@ -30,7 +30,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "모든 연령층의 건강한 삶 보장", 
     color: "#4c9f38", 
     icon: "💚",
-    description: "모든 연령층을 위한 건강한 삶을 보장하고 복지를 증진합니다."
+    description: "모든 연령층을 위한 건강한 삶 보장과 웰빙 증진"
   },
   { 
     id: 4, 
@@ -38,7 +38,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "모두를 위한 포용적이고 공평한 양질의 교육", 
     color: "#c5192d", 
     icon: "📚",
-    description: "모두를 위한 포용적이고 공평한 양질의 교육을 보장하고 평생학습 기회를 증진합니다."
+    description: "포용적이고 공평한 양질의 교육보장과 모두를 위한 평생학습 기회 증진"
   },
   { 
     id: 5, 
@@ -46,7 +46,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "성평등 달성 및 모든 여성과 소녀의 권한 강화", 
     color: "#ff3a21", 
     icon: "⚖️",
-    description: "성평등을 달성하고 모든 여성과 소녀의 권한을 강화합니다."
+    description: "성평등 달성과 모든 여성 및 여아의 권익신장"
   },
   { 
     id: 6, 
@@ -54,7 +54,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "모두를 위한 물과 위생의 이용가능성과 지속가능한 관리", 
     color: "#26bde2", 
     icon: "💧",
-    description: "모두를 위한 물과 위생의 이용가능성과 지속가능한 관리를 보장합니다."
+    description: "모두를 위한 물과 위생의 이용가능성과 지속가능한 관리 보장"
   },
   { 
     id: 7, 
@@ -62,7 +62,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "모두를 위한 저렴하고 신뢰할 수 있는 지속가능한 현대적 에너지", 
     color: "#fcc30b", 
     icon: "⚡",
-    description: "모두를 위한 저렴하고 신뢰할 수 있으며 지속가능한 현대적 에너지에 대한 접근을 보장합니다."
+    description: "모두를 위한 적정가격의 신뢰할 수 있고 지속가능하며 현대적인 에너지에 대한 접근 보장"
   },
   { 
     id: 8, 
@@ -70,7 +70,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "지속가능한 경제성장 및 완전고용과 양질의 일자리", 
     color: "#a21942", 
     icon: "💼",
-    description: "지속가능한 경제성장 및 모두를 위한 완전고용과 양질의 일자리를 증진합니다."
+    description: "지속적･포용적･지속가능한 경제성장, 완전하고 생산적인 고용과 모두를 위한 양질의 일자리 증진"
   },
   { 
     id: 9, 
@@ -78,7 +78,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "복원력 있는 인프라 구축, 지속가능한 산업화 증진", 
     color: "#fd6925", 
     icon: "🏭",
-    description: "복원력 있는 인프라를 구축하고, 포용적이고 지속가능한 산업화를 증진하며 혁신을 장려합니다."
+    description: "회복력 있는 사회기반시설 구축, 포용적이고 지속가능한 산업화 증진과 혁신 도모"
   },
   { 
     id: 10, 
@@ -86,7 +86,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "국내 및 국가 간 불평등 감소", 
     color: "#dd1367", 
     icon: "🤝",
-    description: "국내 및 국가 간 불평등을 감소시킵니다."
+    description: "국내 및 국가 간 불평등 감소"
   },
   { 
     id: 11, 
@@ -94,7 +94,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "포용적이고 안전하며 복원력 있고 지속가능한 도시와 주거지", 
     color: "#fd9d24", 
     icon: "🏙️",
-    description: "포용적이고 안전하며 복원력 있고 지속가능한 도시와 거주지를 조성합니다."
+    description: "포용적이고 안전하며 회복력 있고 지속가능한 도시와 주거지 조성"
   },
   { 
     id: 12, 
@@ -102,7 +102,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "지속가능한 소비와 생산 양식의 보장", 
     color: "#bf8b2e", 
     icon: "♻️",
-    description: "지속가능한 소비와 생산 양식을 보장합니다."
+    description: "지속가능한 소비와 생산 양식의 보장"
   },
   { 
     id: 13, 
@@ -110,7 +110,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "기후변화와 그로 인한 영향에 맞서기 위한 긴급 대응", 
     color: "#3f7e44", 
     icon: "🌍",
-    description: "기후변화와 그로 인한 영향에 맞서기 위한 긴급 대응을 취합니다."
+    description: "기후변화와 그로 인한 영향에 맞서기 위한 긴급 대응"
   },
   { 
     id: 14, 
@@ -118,7 +118,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "지속가능발전을 위한 대양, 바다, 해양자원의 보전과 지속가능한 이용", 
     color: "#0a97d9", 
     icon: "🐠",
-    description: "지속가능발전을 위한 대양, 바다, 해양자원을 보전하고 지속가능하게 이용합니다."
+    description: "지속가능발전을 위하여 대양, 바다, 해양자원의 보전과 지속 가능한 이용"
   },
   { 
     id: 15, 
@@ -126,7 +126,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "육상 생태계 보호, 복원 및 지속가능한 이용 증진", 
     color: "#56c02b", 
     icon: "🌳",
-    description: "육상 생태계를 보호, 복원 및 지속가능한 이용을 증진하고, 지속가능한 산림 관리, 사막화 방지, 토지 황폐화 중단 및 복원, 생물다양성 손실을 중단합니다."
+    description: "육상생태계 보호, 복원 및 지속가능한 이용 증진, 지속가능한 산림 관리, 사막화 방지, 토지황폐화 중지와 회복, 생물다양성 손실 중단"
   },
   { 
     id: 16, 
@@ -134,7 +134,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "평화롭고 포용적인 사회 증진", 
     color: "#00689d", 
     icon: "⚖️",
-    description: "지속가능발전을 위한 평화롭고 포용적인 사회를 증진하고, 모두에게 정의에 대한 접근을 제공하며, 모든 수준에서 효과적이고 책임감 있으며 포용적인 제도를 구축합니다."
+    description: "지속가능발전을 위한 평화롭고 포용적인 사회 증진, 모두에게 정의 보장과 모든 수준에서 효과적이고 책임성 있으며 포용적인 제도 구축"
   },
   { 
     id: 17, 
@@ -142,7 +142,7 @@ export const sdgGoals: SDGGoal[] = [
     subtitle: "지속가능발전을 위한 글로벌 파트너십 강화", 
     color: "#19486a", 
     icon: "🤝",
-    description: "지속가능발전을 위한 이행수단을 강화하고 글로벌 파트너십을 활성화합니다."
+    description: "이행수단 강화와 지속가능발전을 위한 글로벌 파트너십 재활성화"
   }
 ];
 

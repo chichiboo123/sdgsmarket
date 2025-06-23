@@ -1,4 +1,4 @@
-import { Download, X } from 'lucide-react';
+import { Download, X, Printer } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
@@ -47,6 +47,103 @@ export default function ReceiptModal({ open, onOpenChange, receiptData, onComple
         variant: "destructive",
       });
     }
+  };
+
+  const handlePrintReceipt = () => {
+    if (!receiptRef.current) return;
+    
+    const printContent = receiptRef.current.innerHTML;
+    const originalContent = document.body.innerHTML;
+    
+    // Create a new window for printing
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      toast({
+        title: "인쇄 실패",
+        description: "팝업이 차단되었습니다. 팝업을 허용해주세요.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>SDGs 실천 영수증</title>
+          <style>
+            body { 
+              font-family: 'Arial', sans-serif; 
+              margin: 20px; 
+              line-height: 1.6;
+            }
+            .bg-white { background-color: white !important; }
+            .bg-gray-50 { background-color: #f9fafb !important; }
+            .bg-blue-50 { background-color: #eff6ff !important; }
+            .border-2 { border: 2px solid #d1d5db !important; }
+            .border-dashed { border-style: dashed !important; }
+            .border-gray-300 { border-color: #d1d5db !important; }
+            .border-gray-200 { border-color: #e5e7eb !important; }
+            .rounded-lg { border-radius: 8px !important; }
+            .p-8 { padding: 32px !important; }
+            .p-4 { padding: 16px !important; }
+            .mb-6 { margin-bottom: 24px !important; }
+            .mb-4 { margin-bottom: 16px !important; }
+            .mb-3 { margin-bottom: 12px !important; }
+            .mb-2 { margin-bottom: 8px !important; }
+            .mt-4 { margin-top: 16px !important; }
+            .mt-2 { margin-top: 8px !important; }
+            .pt-4 { padding-top: 16px !important; }
+            .pb-4 { padding-bottom: 16px !important; }
+            .py-2 { padding-top: 8px !important; padding-bottom: 8px !important; }
+            .space-y-1 > * + * { margin-top: 4px !important; }
+            .space-y-2 > * + * { margin-top: 8px !important; }
+            .space-y-4 > * + * { margin-top: 16px !important; }
+            .text-center { text-align: center !important; }
+            .text-right { text-align: right !important; }
+            .text-2xl { font-size: 24px !important; }
+            .text-lg { font-size: 18px !important; }
+            .text-sm { font-size: 14px !important; }
+            .font-bold { font-weight: bold !important; }
+            .font-semibold { font-weight: 600 !important; }
+            .font-medium { font-weight: 500 !important; }
+            .text-blue-600 { color: #2563eb !important; }
+            .text-gray-600 { color: #4b5563 !important; }
+            .text-gray-700 { color: #374151 !important; }
+            .text-orange-500 { color: #f97316 !important; }
+            .border-b { border-bottom: 1px solid #e5e7eb !important; }
+            .border-t { border-top: 1px solid #e5e7eb !important; }
+            .border-l-4 { border-left: 4px solid !important; }
+            .flex { display: flex !important; }
+            .items-center { align-items: center !important; }
+            .justify-between { justify-content: space-between !important; }
+            .space-x-2 > * + * { margin-left: 8px !important; }
+            .whitespace-pre-wrap { white-space: pre-wrap !important; }
+            .max-w-full { max-width: 100% !important; }
+            .h-auto { height: auto !important; }
+            @media print {
+              body { margin: 0; }
+              .no-print { display: none !important; }
+            }
+          </style>
+        </head>
+        <body>
+          ${printContent}
+        </body>
+      </html>
+    `);
+    
+    printWindow.document.close();
+    printWindow.focus();
+    
+    setTimeout(() => {
+      printWindow.print();
+      printWindow.close();
+    }, 250);
+    
+    toast({
+      title: "인쇄 준비 완료",
+      description: "인쇄 창이 열렸습니다.",
+    });
   };
 
   const handleComplete = () => {
@@ -150,6 +247,10 @@ export default function ReceiptModal({ open, onOpenChange, receiptData, onComple
               <Button onClick={handleDownloadReceipt} className="bg-orange-500 hover:bg-orange-600">
                 <Download className="w-4 h-4 mr-2" />
                 영수증 다운로드
+              </Button>
+              <Button onClick={handlePrintReceipt} variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-50">
+                <Printer className="w-4 h-4 mr-2" />
+                인쇄하기
               </Button>
             </div>
 
