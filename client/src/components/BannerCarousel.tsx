@@ -40,21 +40,6 @@ export default function BannerCarousel() {
             <div className="text-white max-w-lg">
               <h2 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h2>
               <p className="text-lg mb-6">{slide.subtitle}</p>
-              {(slide.isVideo && slide.videoUrl) || (slide.isExternal && slide.externalUrl) ? (
-                <a
-                  href={slide.isVideo ? slide.videoUrl : slide.externalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    size="lg"
-                    variant="secondary"
-                    className="bg-white hover:bg-gray-100 transition-colors duration-200"
-                  >
-                    <span className={slide.buttonColor}>{slide.buttonText}</span>
-                  </Button>
-                </a>
-              ) : null}
             </div>
           </div>
         ))}
