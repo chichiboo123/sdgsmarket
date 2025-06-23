@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { Link } from 'wouter';
 import { bannerSlides } from '@/lib/sdgData';
+import magnifyingGlass from '@assets/ChatGPT Image 2025년 6월 23일 오전 11_07_37_1750651290224.png';
+import sdgGoals from '@assets/image_1750651295692.png';
+import sdgAnimation from '@assets/ChatGPT Image 2025년 6월 23일 오후 12_55_42_1750651300071.png';
 import { Button } from '@/components/ui/button'; // Assuming a Button component exists
 
 export default function BannerCarousel() {
