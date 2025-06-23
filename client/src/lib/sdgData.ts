@@ -8,9 +8,9 @@ export interface SDGGoal {
 }
 
 // Banner carousel slides data
-import magnifyingGlass from '@/assets/ChatGPT Image 2025년 6월 23일 오전 11_07_37_1750651290224.png';
-import sdgGoals17 from '@/assets/image_1750651295692.png';
-import sdgAnimation from '@/assets/ChatGPT Image 2025년 6월 23일 오후 12_55_42_1750651300071.png';
+import magnifyingGlass from '@/assets/sdg-icons-search.png';
+import sdgGoals17 from '@/assets/sdg-17-goals.png';
+import sdgAnimation from '@/assets/sdg-animation.png';
 
 export interface BannerSlide {
   id: number;
@@ -199,53 +199,4 @@ export const sdgGoals: SDGGoal[] = [
   }
 ];
 
-interface BannerSlide {
-  id: number;
-  title: string;
-  subtitle: string;
-  background: string;
-  buttonText: string;
-  buttonColor: string;
-  linkTo?: string;
-  isExternal?: boolean;
-  externalUrl?: string;
-  isVideo?: boolean;
-  videoUrl?: string;
-  image?: string;
-}
 
-export const bannerSlides: BannerSlide[] = [
-  {
-    id: 1,
-    title: "SDGs란 무엇인가요?",
-    subtitle: "지속가능발전목표는 모든 사람이 평화롭고 풍요로운 삶을 누릴 수 있도록 하는 17개의 글로벌 목표입니다.",
-    background: "from-blue-500 to-green-500",
-    buttonText: "자세히 알아보기",
-    buttonColor: "text-blue-600",
-    isExternal: true,
-    externalUrl: "https://www.ncsd.go.kr/unsdgs?content=1",
-    image: "/src/assets/sdg-icons-search.png"
-  },
-  {
-    id: 2,
-    title: "SDGs 17의 목표",
-    subtitle: "빈곤 퇴치부터 기후행동까지, 우리 모두가 함께 만들어가는 더 나은 세상을 위한 목표들을 만나보세요!",
-    background: "from-purple-500 to-pink-500",
-    buttonText: "목표 둘러보기",
-    buttonColor: "text-purple-600",
-    isExternal: true,
-    externalUrl: "https://www.ncsd.go.kr/unsdgs?content=2",
-    image: "/src/assets/sdg-17-goals.png"
-  },
-  {
-    id: 3,
-    title: "SDGs 애니메이션",
-    subtitle: "재미있는 애니메이션으로 SDGs를 더 쉽게 이해해보세요!",
-    background: "from-orange-500 to-red-500",
-    buttonText: "영상 보기",
-    buttonColor: "text-red-600",
-    isVideo: true,
-    videoUrl: "https://www.youtube.com/watch?v=kwzSaqlcpHI",
-    image: "/src/assets/sdg-animation.png"
-  }
-];
