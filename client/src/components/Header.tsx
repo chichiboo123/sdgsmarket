@@ -11,12 +11,12 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/">
-            <div className="flex items-center space-x-3 cursor-pointer">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-orange-500 rounded-full flex items-center justify-center">
-                <Globe className="text-white text-lg" />
-              </div>
+            <div className="flex items-center gap-2 cursor-pointer">
+              <img src="/src/assets/logo-sdgs-market.png" alt="SDGs 마켓 로고" className="w-10 h-10" />
               <div>
-                <h1 className="text-xl font-bold text-blue-600">SDGs 마켓</h1>
+                <h1 className="text-2xl font-bold text-slate-800 site-title" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>
+                  SDGs 마켓
+                </h1>
                 <p className="text-xs text-gray-600">지속가능발전목표 쇼핑몰</p>
               </div>
             </div>
