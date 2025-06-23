@@ -170,6 +170,7 @@ export const bannerSlides: BannerSlide[] = [
     buttonText: "자세히 알아보기",
     buttonColor: "text-blue-600",
     isExternal: true,
+    isVideo: false,
     externalUrl: "https://www.odakorea.go.kr/teen/cont/ContShow?cont_seq=32"
   },
   {
@@ -180,6 +181,7 @@ export const bannerSlides: BannerSlide[] = [
     buttonText: "자세히 살펴보기",
     buttonColor: "text-purple-600",
     isExternal: true,
+    isVideo: false,
     externalUrl: "https://www.odakorea.go.kr/teen/NationalSustainableDevelopmentGoals"
   },
   {
@@ -189,6 +191,7 @@ export const bannerSlides: BannerSlide[] = [
     background: "from-orange-500 to-red-500",
     buttonText: "영상 보기",
     buttonColor: "text-red-600",
+    isExternal: false,
     isVideo: true,
     videoUrl: "https://www.youtube.com/watch?v=kwzSaqlcpHI"
   }
