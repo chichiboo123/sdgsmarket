@@ -40,6 +40,26 @@ export default function BannerCarousel() {
             <div className="text-white max-w-lg">
               <h2 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h2>
               <p className="text-lg mb-6">{slide.subtitle}</p>
+              <a
+                href={
+                  slide.id === 'sdg-intro' 
+                    ? 'https://www.odakorea.go.kr/teen/cont/ContShow?cont_seq=32'
+                    : slide.id === 'sdg-goals'
+                    ? 'https://www.odakorea.go.kr/teen/NationalSustainableDevelopmentGoals'
+                    : 'https://youtu.be/kwzSaqlcpHI?feature=shared'
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="bg-white hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <span className={slide.buttonColor}>자세히 살펴보기</span>
+                  <ExternalLink className="w-4 h-4 ml-2" />
+                </Button>
+              </a>
             </div>
           </div>
         ))}
