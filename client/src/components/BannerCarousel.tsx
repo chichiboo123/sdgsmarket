@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { Link } from 'wouter';
 import { bannerSlides } from '@/lib/sdgData';
+import magnifyingGlass from '@assets/ChatGPT Image 2025년 6월 23일 오전 11_07_37_1750651290224.png';
+import sdgGoals from '@assets/image_1750651295692.png';
+import sdgAnimation from '@assets/ChatGPT Image 2025년 6월 23일 오후 12_55_42_1750651300071.png';
 import { Button } from '@/components/ui/button'; // Assuming a Button component exists
 
 export default function BannerCarousel() {
@@ -88,16 +91,16 @@ export default function BannerCarousel() {
                 </Button>
               )}
             </div>
-            {/* Illustration */}
+            {/* Placeholder for illustration */}
             <div className="hidden md:block">
               {slide.image ? (
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="w-48 h-48 object-contain"
+                  className="w-32 h-32 object-contain"
                 />
               ) : (
-                <div className="w-48 h-48 bg-white bg-opacity-20 rounded-xl flex items-center justify-center">
+                <div className="w-64 h-48 bg-white bg-opacity-20 rounded-xl flex items-center justify-center">
                   <span className="text-white text-4xl">🌍</span>
                 </div>
               )}
