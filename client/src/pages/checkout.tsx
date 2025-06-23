@@ -233,19 +233,19 @@ export default function Checkout() {
             {/* Delivery Info */}
             <Card>
               <CardHeader>
-                <CardTitle>배송 메모(선택)</CardTitle>
+                <CardTitle>배송 정보(선택)</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">배송지</label>
-                  <Input placeholder="배송지를 입력하세요 (예: 학교)" className="bg-white" />
+                  <label className="block text-sm font-medium text-gray-700 mb-1">학교명</label>
+                  <Input value="학교" readOnly className="bg-gray-100" />
                 </div>
                 <FormField
                   control={form.control}
                   name="deliveryMemos"
                   render={() => (
                     <FormItem>
-                      <FormLabel>배송 메모</FormLabel>
+                      <FormLabel>배송 메모(선택)</FormLabel>
                       <div className="space-y-2">
                         {deliveryOptions.map((option) => (
                           <FormField
@@ -275,6 +275,74 @@ export default function Checkout() {
                           />
                         ))}
                       </div>
+                    </FormItem>
+                  )}
+                />
+              </CardContent>
+            </Card>
+
+            {/* Order Info */}
+            <Card>
+              <CardHeader>
+                <CardTitle>주문상품 정보</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {items.map((item) => (
+                    <div key={item.id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg border">
+                      <div className="text-2xl">{item.icon}</div>
+                      <div className="flex-1">
+                        <h5 className="font-medium text-gray-900">{item.title}</h5>
+                        <p className="text-sm text-gray-600">{item.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Payment Method */}
+            <Card>
+              <CardHeader>
+                <CardTitle>결제수단 선택(실천방식)</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <FormField
+                  control={form.control}
+                  name="paymentMethod"
+                  render={() => (
+                    <FormItem>
+                      <div className="space-y-2">
+                        {paymentMethods.map((method) => (
+                          <FormField
+                            key={method.id}
+                            control={form.control}
+                            name="paymentMethod"
+                            render={({ field }) => (
+                              <FormItem className="flex items-center space-x-2">
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(method.id)}
+                                    onCheckedChange={(checked) => {
+                                      const value = field.value || [];
+                                      if (checked) {
+                                        field.onChange([...value, method.id]);
+                                      } else {
+                                        field.onChange(value.filter((v) => v !== method.id));
+                                      }
+                                    }}
+                                  />
+                                </FormControl>
+                                <FormLabel className="text-sm font-normal flex items-center">
+                                  <span className="mr-2">{method.emoji}</span>
+                                  {method.label}
+                                </FormLabel>
+                              </FormItem>
+                            )}
+                          />
+                        ))}
+                      </div>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
