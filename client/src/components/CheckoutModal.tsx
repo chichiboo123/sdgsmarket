@@ -29,10 +29,10 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const deliveryOptions = [
-  "빠른 배송 원함",
+  "빠른 배송을 원해요",
   "문 앞에 놓아주세요",
-  "부재시 연락 바람",
-  "직접 연락 필요"
+  "실천하지 않을시 알람주세요",
+  "부재시 친구에게 맡겨주세요"
 ];
 
 interface CheckoutModalProps {
@@ -227,7 +227,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
                 <h4 className="font-semibold text-gray-900 mb-4">배송지 정보</h4>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">배송지</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">학교명</label>
                     <Input value="학교" readOnly className="bg-gray-100" />
                   </div>
                   <FormField

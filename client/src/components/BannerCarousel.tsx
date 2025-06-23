@@ -47,11 +47,11 @@ export default function BannerCarousel() {
           index === currentSlide ? (
             <div
               key={slide.id}
-              className={`carousel-slide absolute inset-0 bg-gradient-to-r ${slide.background} flex items-center justify-between px-8 md:px-16`}
+              className={`carousel-slide absolute inset-0 bg-gradient-to-r ${slide.background} flex items-center justify-center md:justify-between px-4 md:px-8 lg:px-16`}
             >
-              <div className="text-white max-w-lg">
-                <h2 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h2>
-                <p className="text-lg mb-6">{slide.subtitle}</p>
+              <div className="text-gray-800 max-w-lg text-center md:text-left">
+                <h2 className="text-lg md:text-2xl lg:text-4xl font-bold mb-2 md:mb-4" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>{slide.title}</h2>
+                <p className="text-sm md:text-base lg:text-lg mb-4 md:mb-6">{slide.subtitle}</p>
                 <a
                   href={getSlideUrl(slide.id)}
                   target="_blank"

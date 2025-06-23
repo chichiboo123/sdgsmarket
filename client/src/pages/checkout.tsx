@@ -32,10 +32,10 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const deliveryOptions = [
-  "빠른 배송 원함",
+  "빠른 배송을 원해요",
   "문 앞에 놓아주세요",
-  "부재시 연락 바람",
-  "직접 연락 필요"
+  "실천하지 않을시 알람주세요",
+  "부재시 친구에게 맡겨주세요"
 ];
 
 export default function Checkout() {

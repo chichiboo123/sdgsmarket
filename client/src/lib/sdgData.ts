@@ -85,7 +85,7 @@ export const sdgGoals: SDGGoal[] = [
     title: "불평등 감소", 
     subtitle: "국내 및 국가 간 불평등 감소", 
     color: "#dd1367", 
-    icon: "🤝",
+    icon: "🟰",
     description: "국내 및 국가 간 불평등 감소"
   },
   { 
@@ -166,7 +166,7 @@ export const bannerSlides: BannerSlide[] = [
     id: 'sdg-intro',
     title: 'SDGs란 무엇인가요?',
     subtitle: '지속가능발전목표에 대해 알아보세요',
-    background: 'from-blue-600 to-purple-700',
+    background: 'from-sky-200 to-indigo-200',
     buttonText: '자세히 알아보기',
     buttonColor: 'text-blue-600',
     image: '/src/assets/sdg-icons-search.png'
@@ -175,7 +175,7 @@ export const bannerSlides: BannerSlide[] = [
     id: 'sdg-goals',
     title: 'SDGs 17개의 목표',
     subtitle: '2030년까지 달성해야 할 17개 목표를 확인하세요',
-    background: 'from-green-600 to-blue-600',
+    background: 'from-purple-200 to-pink-200',
     buttonText: '목표 보기',
     buttonColor: 'text-green-600',
     image: '/src/assets/sdg-17-goals.png'
@@ -184,7 +184,7 @@ export const bannerSlides: BannerSlide[] = [
     id: 'sdg-animation',
     title: 'SDGs 애니메이션',
     subtitle: '쉽고 재미있게 SDGs를 이해해보세요',
-    background: 'from-orange-500 to-red-600',
+    background: 'from-orange-200 to-red-200',
     buttonText: '영상 보기',
     buttonColor: 'text-orange-500',
     image: '/src/assets/sdg-animation.png'
