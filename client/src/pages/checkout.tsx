@@ -24,10 +24,8 @@ const formSchema = z.object({
   school: z.string().min(1, '학교명을 입력하세요'),
   grade: z.string().min(1, '학년을 선택하세요'),
   class: z.string().optional(),
-  deliverySchool: z.string().optional(),
-  planMethod: z.array(z.string()).min(1, '실천계획 방법을 선택하세요'),
+  planMethod: z.enum(['text', 'drawing', 'both']),
   actionPlanText: z.string().optional(),
-  imageUpload: z.any().optional(),
   deliveryMemos: z.array(z.string()).optional(),
   paymentMethod: z.array(z.string()).min(1, '결제수단을 선택하세요'),
 });
@@ -47,19 +45,12 @@ const paymentMethods = [
   { id: "action", label: "행동하기", emoji: "🚀" }
 ];
 
-const planMethods = [
-  { id: "text", label: "글로 작성" },
-  { id: "drawing", label: "그림으로 작성" },
-  { id: "image", label: "이미지 업로드" }
-];
-
 export default function Checkout() {
   const { items, count, clearCart } = useCart();
   const { toast } = useToast();
   const [showReceipt, setShowReceipt] = useState(false);
   const [receiptData, setReceiptData] = useState<any>(null);
   const [drawingData, setDrawingData] = useState<string>('');
-  const [uploadedImage, setUploadedImage] = useState<string>('');
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -68,8 +59,7 @@ export default function Checkout() {
       school: '',
       grade: '',
       class: '',
-      deliverySchool: '',
-      planMethod: [],
+      planMethod: 'text',
       actionPlanText: '',
       deliveryMemos: [],
       paymentMethod: [],
@@ -89,11 +79,10 @@ export default function Checkout() {
 
       const actionPlanData = {
         sdgGoals: items.map(item => item.id),
-        planMethod: data.planMethod.join(','),
+        planMethod: data.planMethod,
         actionPlanText: data.actionPlanText || '',
         drawingData: drawingData,
         deliveryMemos: data.deliveryMemos || [],
-        paymentMethod: data.paymentMethod || [],
       };
 
       // Create student
@@ -169,7 +158,7 @@ export default function Checkout() {
             {/* Student Information */}
             <Card>
               <CardHeader>
-                <CardTitle>주문자 정보</CardTitle>
+                <CardTitle>학생 정보</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -191,7 +180,7 @@ export default function Checkout() {
                     name="school"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>학교명 *</FormLabel>
+                        <FormLabel>학교명</FormLabel>
                         <FormControl>
                           <Input placeholder="학교명을 입력하세요" {...field} />
                         </FormControl>
@@ -247,19 +236,10 @@ export default function Checkout() {
                 <CardTitle>배송 정보(선택)</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="deliverySchool"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>학교명</FormLabel>
-                      <FormControl>
-                        <Input placeholder="학교명을 입력하세요" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">학교명</label>
+                  <Input value="학교" readOnly className="bg-gray-100" />
+                </div>
                 <FormField
                   control={form.control}
                   name="deliveryMemos"
@@ -372,7 +352,7 @@ export default function Checkout() {
             {/* Action Plan */}
             <Card>
               <CardHeader>
-                <CardTitle>실천계획</CardTitle>
+                <CardTitle>실천계획 입력</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <FormField
@@ -405,69 +385,34 @@ export default function Checkout() {
                   )}
                 />
 
-                <div className="space-y-6">
-                  <h4 className="font-medium text-gray-900">나의 실천계획</h4>
-                  
-                  {/* Text Input */}
-                  {form.watch('planMethod')?.includes('text') && (
-                    <FormField
-                      control={form.control}
-                      name="actionPlanText"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>글로 작성</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="SDGs 목표 달성을 위한 구체적인 실천계획을 작성해주세요..."
-                              className="min-h-32"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  )}
+                {(planMethod === 'text' || planMethod === 'both') && (
+                  <FormField
+                    control={form.control}
+                    name="actionPlanText"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>나의 실천계획</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="선택한 SDGs 목표를 위해 어떤 실천을 할 것인지 구체적으로 작성해보세요."
+                            className="min-h-[120px]"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
 
-                  {/* Drawing Canvas */}
-                  {form.watch('planMethod')?.includes('drawing') && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        그림으로 작성
-                      </label>
-                      <DrawingCanvas onDrawingChange={setDrawingData} />
-                    </div>
-                  )}
-
-                  {/* Image Upload */}
-                  {form.watch('planMethod')?.includes('image') && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        이미지 업로드
-                      </label>
-                      <Input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            const reader = new FileReader();
-                            reader.onload = (event) => {
-                              setUploadedImage(event.target?.result as string);
-                            };
-                            reader.readAsDataURL(file);
-                          }
-                        }}
-                        className="mb-2"
-                      />
-                      {uploadedImage && (
-                        <div className="mt-2">
-                          <img src={uploadedImage} alt="업로드된 이미지" className="max-w-full h-48 object-contain border rounded" />
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
+                {(planMethod === 'drawing' || planMethod === 'both') && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      그림으로 실천계획 그리기
+                    </label>
+                    <DrawingCanvas onDrawingChange={setDrawingData} />
+                  </div>
+                )}
               </CardContent>
             </Card>
 

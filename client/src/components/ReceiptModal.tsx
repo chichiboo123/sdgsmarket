@@ -36,7 +36,11 @@ export default function ReceiptModal({ open, onOpenChange, receiptData, onComple
       link.click();
       document.body.removeChild(link);
       
-      } catch (error) {
+      toast({
+        title: "다운로드 완료",
+        description: "영수증이 다운로드되었습니다.",
+      });
+    } catch (error) {
       toast({
         title: "다운로드 실패",
         description: "다시 시도해주세요.",
@@ -135,6 +139,11 @@ export default function ReceiptModal({ open, onOpenChange, receiptData, onComple
       printWindow.print();
       printWindow.close();
     }, 250);
+    
+    toast({
+      title: "인쇄 준비 완료",
+      description: "인쇄 창이 열렸습니다.",
+    });
   };
 
   const handleComplete = () => {
@@ -204,29 +213,6 @@ export default function ReceiptModal({ open, onOpenChange, receiptData, onComple
                   <p className="font-bold">총 목표 수: {receiptData.sdgGoals.length}개</p>
                 </div>
               </div>
-              
-              {receiptData.actionPlan.paymentMethod && receiptData.actionPlan.paymentMethod.length > 0 && (
-                <div className="mb-6">
-                  <h3 className="font-semibold mb-3">선택한 결제수단(실천방식)</h3>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="space-y-2">
-                      {receiptData.actionPlan.paymentMethod.map((method: string) => {
-                        const methodInfo = {
-                          think: { label: "생각하기", emoji: "🤔" },
-                          empathize: { label: "공감하기", emoji: "💝" },
-                          action: { label: "행동하기", emoji: "🚀" }
-                        }[method];
-                        return methodInfo ? (
-                          <div key={method} className="flex items-center space-x-2">
-                            <span>{methodInfo.emoji}</span>
-                            <span>{methodInfo.label}</span>
-                          </div>
-                        ) : null;
-                      })}
-                    </div>
-                  </div>
-                </div>
-              )}
               
               {(receiptData.actionPlan.actionPlanText || receiptData.actionPlan.drawingData) && (
                 <div className="mb-6">

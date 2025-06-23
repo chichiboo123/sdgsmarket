@@ -133,7 +133,7 @@ export const sdgGoals: SDGGoal[] = [
     title: "정의 · 평화 · 효과적인 제도", 
     subtitle: "평화롭고 포용적인 사회 증진", 
     color: "#00689d", 
-    icon: "📖",
+    icon: "⚖️",
     description: "지속가능발전을 위한 평화롭고 포용적인 사회 증진, 모두에게 정의 보장과 모든 수준에서 효과적이고 책임성 있으며 포용적인 제도 구축"
   },
   { 
