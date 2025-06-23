@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { Link } from 'wouter';
 import { bannerSlides } from '@/lib/sdgData';
+import { Button } from '@/components/ui/button'; // Assuming a Button component exists
 
 export default function BannerCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -39,43 +40,67 @@ export default function BannerCarousel() {
             <div className="text-white max-w-lg">
               <h2 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h2>
               <p className="text-lg mb-6">{slide.subtitle}</p>
-              {slide.isVideo ? (
-                <a
-                  href={slide.videoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`bg-white ${slide.buttonColor} px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors inline-flex items-center`}
-                >
-                  <ExternalLink className="mr-2 w-4 h-4" />
-                  {slide.buttonText}
-                </a>
-              ) : slide.isExternal ? (
+              {slide.isExternal ? (
                 <a
                   href={slide.externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`bg-white ${slide.buttonColor} px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors inline-flex items-center`}
                 >
-                  <ExternalLink className="mr-2 w-4 h-4" />
-                  {slide.buttonText}
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="bg-white hover:bg-gray-100 transition-colors duration-200"
+                  >
+                    <span className={slide.buttonColor}>{slide.buttonText}</span>
+                  </Button>
+                </a>
+              ) : slide.isVideo ? (
+                <a
+                  href={slide.videoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="bg-white hover:bg-gray-100 transition-colors duration-200"
+                  >
+                    <span className={slide.buttonColor}>{slide.buttonText}</span>
+                  </Button>
                 </a>
               ) : slide.linkTo ? (
                 <Link href={slide.linkTo}>
-                  <button className={`bg-white ${slide.buttonColor} px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors`}>
-                    {slide.buttonText}
-                  </button>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="bg-white hover:bg-gray-100 transition-colors duration-200"
+                  >
+                    <span className={slide.buttonColor}>{slide.buttonText}</span>
+                  </Button>
                 </Link>
               ) : (
-                <button className={`bg-white ${slide.buttonColor} px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors`}>
-                  {slide.buttonText}
-                </button>
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="bg-white hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <span className={slide.buttonColor}>{slide.buttonText}</span>
+                </Button>
               )}
             </div>
             {/* Placeholder for illustration */}
             <div className="hidden md:block">
-              <div className="w-64 h-48 bg-white bg-opacity-20 rounded-xl flex items-center justify-center">
-                <span className="text-white text-4xl">🌍</span>
-              </div>
+              {slide.image ? (
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-32 h-32 object-contain"
+                />
+              ) : (
+                <div className="w-64 h-48 bg-white bg-opacity-20 rounded-xl flex items-center justify-center">
+                  <span className="text-white text-4xl">🌍</span>
+                </div>
+              )}
             </div>
           </div>
         ))}

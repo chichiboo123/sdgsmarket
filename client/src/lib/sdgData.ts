@@ -146,7 +146,22 @@ export const sdgGoals: SDGGoal[] = [
   }
 ];
 
-export const bannerSlides = [
+interface BannerSlide {
+  id: number;
+  title: string;
+  subtitle: string;
+  background: string;
+  buttonText: string;
+  buttonColor: string;
+  linkTo?: string;
+  isExternal?: boolean;
+  externalUrl?: string;
+  isVideo?: boolean;
+  videoUrl?: string;
+  image?: string;
+}
+
+export const bannerSlides: BannerSlide[] = [
   {
     id: 1,
     title: "SDGs란 무엇인가요?",
@@ -154,7 +169,9 @@ export const bannerSlides = [
     background: "from-blue-500 to-green-500",
     buttonText: "자세히 알아보기",
     buttonColor: "text-blue-600",
-    linkTo: "/about-sdgs"
+    isExternal: true,
+    externalUrl: "https://www.ncsd.go.kr/unsdgs?content=1",
+    image: "/src/assets/sdg-icons-search.png"
   },
   {
     id: 2,
@@ -164,7 +181,8 @@ export const bannerSlides = [
     buttonText: "목표 둘러보기",
     buttonColor: "text-purple-600",
     isExternal: true,
-    externalUrl: "https://ncsd.go.kr/unsdgs?content=2"
+    externalUrl: "https://www.ncsd.go.kr/unsdgs?content=2",
+    image: "/src/assets/sdg-17-goals.png"
   },
   {
     id: 3,
@@ -174,6 +192,7 @@ export const bannerSlides = [
     buttonText: "영상 보기",
     buttonColor: "text-red-600",
     isVideo: true,
-    videoUrl: "https://www.youtube.com/watch?v=kwzSaqlcpHI"
+    videoUrl: "https://www.youtube.com/watch?v=kwzSaqlcpHI",
+    image: "/src/assets/sdg-animation.png"
   }
 ];
