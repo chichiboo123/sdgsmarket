@@ -167,22 +167,20 @@ export const bannerSlides: BannerSlide[] = [
     title: "SDGs란 무엇인가요?",
     subtitle: "지속가능발전목표는 모든 사람이 평화롭고 풍요로운 삶을 누릴 수 있도록 하는 17개의 글로벌 목표입니다.",
     background: "from-blue-500 to-green-500",
-    buttonText: "자세히 알아보기",
+    buttonText: "더 알아보기",
     buttonColor: "text-blue-600",
     isExternal: true,
-    externalUrl: "https://www.ncsd.go.kr/unsdgs?content=1",
-    image: "/src/assets/sdg-icons-search.png"
+    externalUrl: "https://www.ncsd.go.kr/unsdgs?content=1"
   },
   {
     id: 2,
     title: "SDGs 17의 목표",
     subtitle: "빈곤 퇴치부터 기후행동까지, 우리 모두가 함께 만들어가는 더 나은 세상을 위한 목표들을 만나보세요!",
     background: "from-purple-500 to-pink-500",
-    buttonText: "목표 둘러보기",
+    buttonText: "목표 보기",
     buttonColor: "text-purple-600",
     isExternal: true,
-    externalUrl: "https://www.ncsd.go.kr/unsdgs?content=2",
-    image: "/src/assets/sdg-17-goals.png"
+    externalUrl: "https://www.ncsd.go.kr/unsdgs?content=2"
   },
   {
     id: 3,
@@ -192,7 +190,6 @@ export const bannerSlides: BannerSlide[] = [
     buttonText: "영상 보기",
     buttonColor: "text-red-600",
     isVideo: true,
-    videoUrl: "https://www.youtube.com/watch?v=kwzSaqlcpHI",
-    image: "/src/assets/sdg-animation.png"
+    videoUrl: "https://www.youtube.com/watch?v=kwzSaqlcpHI"
   }
 ];
