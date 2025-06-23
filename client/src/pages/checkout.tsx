@@ -261,7 +261,7 @@ export default function Checkout() {
               <CardContent className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">배송지</label>
-                  <Input value="학교" readOnly className="bg-gray-50" />
+                  <Input placeholder="배송지를 입력하세요 (예: 학교)" className="bg-white" />
                 </div>
                 <FormField
                   control={form.control}

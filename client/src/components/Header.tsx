@@ -22,11 +22,8 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Navigation */}
+          {/* Navigation - Removed per requirements */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#goals" className="text-gray-700 hover:text-blue-600 font-medium">SDGs 목표</a>
-            <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium">SDGs란?</a>
-            <a href="#education" className="text-gray-700 hover:text-blue-600 font-medium">교육자료</a>
           </nav>
 
           {/* Cart */}

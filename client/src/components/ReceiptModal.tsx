@@ -17,6 +17,7 @@ interface ReceiptModalProps {
 export default function ReceiptModal({ open, onOpenChange, receiptData, onComplete }: ReceiptModalProps) {
   const { toast } = useToast();
   const receiptRef = useRef<HTMLDivElement>(null);
+  const receiptRef = useRef<HTMLDivElement>(null);
 
   const handleDownloadPDF = async () => {
     try {

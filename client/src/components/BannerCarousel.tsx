@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { Link } from 'wouter';
 import { bannerSlides } from '@/lib/sdgData';
 
 export default function BannerCarousel() {
@@ -48,6 +49,22 @@ export default function BannerCarousel() {
                   <ExternalLink className="mr-2 w-4 h-4" />
                   {slide.buttonText}
                 </a>
+              ) : slide.isExternal ? (
+                <a
+                  href={slide.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`bg-white ${slide.buttonColor} px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors inline-flex items-center`}
+                >
+                  <ExternalLink className="mr-2 w-4 h-4" />
+                  {slide.buttonText}
+                </a>
+              ) : slide.linkTo ? (
+                <Link href={slide.linkTo}>
+                  <button className={`bg-white ${slide.buttonColor} px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors`}>
+                    {slide.buttonText}
+                  </button>
+                </Link>
               ) : (
                 <button className={`bg-white ${slide.buttonColor} px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors`}>
                   {slide.buttonText}

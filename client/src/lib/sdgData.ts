@@ -10,7 +10,7 @@ export interface SDGGoal {
 export const sdgGoals: SDGGoal[] = [
   { 
     id: 1, 
-    title: "빈곤 종료", 
+    title: "빈곤 퇴치", 
     subtitle: "모든 형태의 빈곤 종료", 
     color: "#e5243b", 
     icon: "🏠",
@@ -18,7 +18,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 2, 
-    title: "기아 종료", 
+    title: "기아 종식", 
     subtitle: "기아 종료, 식량안보 확보", 
     color: "#dda63a", 
     icon: "🌾",
@@ -58,7 +58,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 7, 
-    title: "깨끗한 에너지", 
+    title: "모두를 위한 깨끗한 에너지", 
     subtitle: "모두를 위한 저렴하고 신뢰할 수 있는 지속가능한 현대적 에너지", 
     color: "#fcc30b", 
     icon: "⚡",
@@ -66,7 +66,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 8, 
-    title: "양질의 일자리", 
+    title: "양질의 일자리와 경제성장", 
     subtitle: "지속가능한 경제성장 및 완전고용과 양질의 일자리", 
     color: "#a21942", 
     icon: "💼",
@@ -74,7 +74,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 9, 
-    title: "산업혁신과 인프라", 
+    title: "산업·혁신·사회기반시설", 
     subtitle: "복원력 있는 인프라 구축, 지속가능한 산업화 증진", 
     color: "#fd6925", 
     icon: "🏭",
@@ -82,7 +82,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 10, 
-    title: "불평등 완화", 
+    title: "불평등 감소", 
     subtitle: "국내 및 국가 간 불평등 감소", 
     color: "#dd1367", 
     icon: "🤝",
@@ -90,7 +90,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 11, 
-    title: "지속가능한 도시", 
+    title: "지속가능한 도시와 공동체", 
     subtitle: "포용적이고 안전하며 복원력 있고 지속가능한 도시와 주거지", 
     color: "#fd9d24", 
     icon: "🏙️",
@@ -98,7 +98,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 12, 
-    title: "책임감 있는 소비", 
+    title: "지속가능한 생산과 소비", 
     subtitle: "지속가능한 소비와 생산 양식의 보장", 
     color: "#bf8b2e", 
     icon: "♻️",
@@ -106,7 +106,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 13, 
-    title: "기후행동", 
+    title: "기후변화 대응", 
     subtitle: "기후변화와 그로 인한 영향에 맞서기 위한 긴급 대응", 
     color: "#3f7e44", 
     icon: "🌍",
@@ -114,7 +114,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 14, 
-    title: "해양생태계", 
+    title: "해양생태계 보존", 
     subtitle: "지속가능발전을 위한 대양, 바다, 해양자원의 보전과 지속가능한 이용", 
     color: "#0a97d9", 
     icon: "🐠",
@@ -122,7 +122,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 15, 
-    title: "육상생태계", 
+    title: "육상생태계 보존", 
     subtitle: "육상 생태계 보호, 복원 및 지속가능한 이용 증진", 
     color: "#56c02b", 
     icon: "🌳",
@@ -130,7 +130,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 16, 
-    title: "평화와 정의", 
+    title: "정의 · 평화 · 효과적인 제도", 
     subtitle: "평화롭고 포용적인 사회 증진", 
     color: "#00689d", 
     icon: "⚖️",
@@ -138,7 +138,7 @@ export const sdgGoals: SDGGoal[] = [
   },
   { 
     id: 17, 
-    title: "파트너십", 
+    title: "글로벌 파트너쉽", 
     subtitle: "지속가능발전을 위한 글로벌 파트너십 강화", 
     color: "#19486a", 
     icon: "🤝",
@@ -153,15 +153,18 @@ export const bannerSlides = [
     subtitle: "지속가능발전목표는 모든 사람이 평화롭고 풍요로운 삶을 누릴 수 있도록 하는 17개의 글로벌 목표입니다.",
     background: "from-blue-500 to-green-500",
     buttonText: "자세히 알아보기",
-    buttonColor: "text-blue-600"
+    buttonColor: "text-blue-600",
+    linkTo: "/about-sdgs"
   },
   {
     id: 2,
-    title: "17개의 목표",
+    title: "SDGs 17의 목표",
     subtitle: "빈곤 퇴치부터 기후행동까지, 우리 모두가 함께 만들어가는 더 나은 세상을 위한 목표들을 만나보세요!",
     background: "from-purple-500 to-pink-500",
     buttonText: "목표 둘러보기",
-    buttonColor: "text-purple-600"
+    buttonColor: "text-purple-600",
+    isExternal: true,
+    externalUrl: "https://ncsd.go.kr/unsdgs?content=2"
   },
   {
     id: 3,
