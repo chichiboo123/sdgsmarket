@@ -7,6 +7,59 @@ export interface SDGGoal {
   description: string;
 }
 
+// Banner carousel slides data
+import magnifyingGlass from '@/assets/ChatGPT Image 2025년 6월 23일 오전 11_07_37_1750651290224.png';
+import sdgGoals17 from '@/assets/image_1750651295692.png';
+import sdgAnimation from '@/assets/ChatGPT Image 2025년 6월 23일 오후 12_55_42_1750651300071.png';
+
+export interface BannerSlide {
+  id: number;
+  title: string;
+  subtitle: string;
+  background: string;
+  buttonText: string;
+  buttonColor: string;
+  image?: string;
+  linkTo?: string;
+  isExternal?: boolean;
+  externalUrl?: string;
+  isVideo?: boolean;
+  videoUrl?: string;
+}
+
+export const bannerSlides: BannerSlide[] = [
+  {
+    id: 1,
+    title: "SDGs란 무엇인가요?",
+    subtitle: "지속가능발전목표에 대해 알아보세요",
+    background: "from-blue-500 to-green-500",
+    buttonText: "자세히 보기",
+    buttonColor: "text-blue-600",
+    image: magnifyingGlass,
+    linkTo: "/about-sdgs"
+  },
+  {
+    id: 2,
+    title: "17개의 목표",
+    subtitle: "모든 사람을 위한 더 나은 미래를 만들어요",
+    background: "from-green-500 to-blue-500",
+    buttonText: "목표 보기",
+    buttonColor: "text-green-600",
+    image: sdgGoals17,
+    linkTo: "/#goals"
+  },
+  {
+    id: 3,
+    title: "함께 실천해요",
+    subtitle: "작은 행동이 큰 변화를 만듭니다",
+    background: "from-purple-500 to-pink-500",
+    buttonText: "시작하기",
+    buttonColor: "text-purple-600",
+    image: sdgAnimation,
+    linkTo: "/#goals"
+  }
+];
+
 export const sdgGoals: SDGGoal[] = [
   { 
     id: 1, 
