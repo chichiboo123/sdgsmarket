@@ -1,8 +1,11 @@
-import { Download, Printer, X } from 'lucide-react';
+
+import { Download, Printer, X, Image } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
+import html2canvas from 'html2canvas';
+import { useRef } from 'react';
 
 interface ReceiptModalProps {
   open: boolean;
@@ -13,8 +16,9 @@ interface ReceiptModalProps {
 
 export default function ReceiptModal({ open, onOpenChange, receiptData, onComplete }: ReceiptModalProps) {
   const { toast } = useToast();
+  const receiptRef = useRef<HTMLDivElement>(null);
 
-  const handleDownloadReceipt = async () => {
+  const handleDownloadPDF = async () => {
     try {
       const response = await apiRequest('POST', '/api/generate-receipt', receiptData);
       const blob = await response.blob();
@@ -29,20 +33,105 @@ export default function ReceiptModal({ open, onOpenChange, receiptData, onComple
       document.body.removeChild(a);
       
       toast({
-        title: "다운로드 완료",
-        description: "영수증이 다운로드되었습니다.",
+        title: "PDF 다운로드 완료",
+        description: "영수증 PDF가 다운로드되었습니다.",
       });
     } catch (error) {
+      console.error('PDF download error:', error);
       toast({
-        title: "다운로드 실패",
+        title: "PDF 다운로드 실패",
         description: "다시 시도해주세요.",
         variant: "destructive",
       });
     }
   };
 
-  const handlePrintReceipt = () => {
-    window.print();
+  const handleDownloadJPG = async () => {
+    try {
+      if (!receiptRef.current) return;
+      
+      const canvas = await html2canvas(receiptRef.current, {
+        backgroundColor: '#ffffff',
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+      });
+      
+      const link = document.createElement('a');
+      link.download = 'sdg-receipt.jpg';
+      link.href = canvas.toDataURL('image/jpeg', 0.9);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast({
+        title: "JPG 다운로드 완료",
+        description: "영수증 이미지가 다운로드되었습니다.",
+      });
+    } catch (error) {
+      console.error('JPG download error:', error);
+      toast({
+        title: "JPG 다운로드 실패",
+        description: "다시 시도해주세요.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handlePrint = () => {
+    try {
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) return;
+      
+      const receiptElement = receiptRef.current;
+      if (!receiptElement) return;
+      
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>SDGs 마켓 실천 영수증</title>
+          <meta charset="utf-8">
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+            body { 
+              font-family: 'Noto Sans KR', sans-serif; 
+              margin: 0; 
+              padding: 20px; 
+              background: white; 
+              color: black;
+            }
+            @media print {
+              body { margin: 0; padding: 10px; }
+              .no-print { display: none !important; }
+            }
+          </style>
+        </head>
+        <body>
+          ${receiptElement.innerHTML}
+        </body>
+        </html>
+      `);
+      
+      printWindow.document.close();
+      printWindow.focus();
+      
+      setTimeout(() => {
+        printWindow.print();
+      }, 250);
+      
+      toast({
+        title: "인쇄 준비 완료",
+        description: "인쇄 창이 열렸습니다.",
+      });
+    } catch (error) {
+      console.error('Print error:', error);
+      toast({
+        title: "인쇄 실패",
+        description: "다시 시도해주세요.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleComplete = () => {
@@ -74,7 +163,7 @@ export default function ReceiptModal({ open, onOpenChange, receiptData, onComple
         </DialogHeader>
         
         <div className="p-6">
-          <div className="bg-white p-8 border-2 border-dashed border-gray-300 rounded-lg mb-6">
+          <div ref={receiptRef} className="bg-white p-8 border-2 border-dashed border-gray-300 rounded-lg mb-6">
             <div className="text-center border-b border-gray-300 pb-4 mb-6">
               <h2 className="text-2xl font-bold text-blue-600 mb-2">SDGs 마켓</h2>
               <p className="text-lg font-semibold">실천 영수증</p>
@@ -123,12 +212,16 @@ export default function ReceiptModal({ open, onOpenChange, receiptData, onComple
             </div>
           </div>
 
-          <div className="flex justify-center space-x-4 mb-4">
-            <Button onClick={handleDownloadReceipt} className="bg-orange-500 hover:bg-orange-600">
-              <Download className="w-4 h-4 mr-2" />
-              영수증 다운로드
+          <div className="flex justify-center space-x-3 mb-4">
+            <Button onClick={handleDownloadJPG} className="bg-green-500 hover:bg-green-600">
+              <Image className="w-4 h-4 mr-2" />
+              JPG 다운로드
             </Button>
-            <Button variant="outline" onClick={handlePrintReceipt}>
+            <Button onClick={handleDownloadPDF} className="bg-red-500 hover:bg-red-600">
+              <Download className="w-4 h-4 mr-2" />
+              PDF 다운로드
+            </Button>
+            <Button variant="outline" onClick={handlePrint}>
               <Printer className="w-4 h-4 mr-2" />
               인쇄하기
             </Button>
