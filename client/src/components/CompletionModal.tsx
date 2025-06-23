@@ -18,7 +18,7 @@ export default function CompletionModal({ open, onOpenChange, onStartOver }: Com
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center text-xl font-bold text-green-600 mb-4">
-            축하합니다! 🎁
+            환영합니다! 🎁
           </DialogTitle>
         </DialogHeader>
         

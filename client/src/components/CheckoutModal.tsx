@@ -103,12 +103,14 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
       toast({
         title: "실천계획이 저장되었습니다!",
         description: "영수증을 확인하고 다운로드하세요.",
+        duration: 3000,
       });
     } catch (error) {
       toast({
         title: "오류가 발생했습니다",
         description: "다시 시도해주세요.",
         variant: "destructive",
+        duration: 3000,
       });
     }
   };
@@ -173,9 +175,9 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
                     name="school"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>배송지</FormLabel>
+                        <FormLabel>학교명</FormLabel>
                         <FormControl>
-                          <Input placeholder="배송지를 입력하세요" {...field} />
+                          <Input placeholder="학교명을 입력하세요" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -341,7 +343,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
                   취소
                 </Button>
                 <Button type="submit" className="bg-orange-500 hover:bg-orange-600">
-                  실천 영수증 생성
+                  구매하기
                 </Button>
               </div>
             </form>
