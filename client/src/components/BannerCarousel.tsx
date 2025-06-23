@@ -43,9 +43,9 @@ export default function BannerCarousel() {
             <div className="text-white max-w-lg">
               <h2 className="text-2xl md:text-4xl font-bold mb-4">{slide.title}</h2>
               <p className="text-lg mb-6">{slide.subtitle}</p>
-              {slide.isExternal ? (
+              {slide.isVideo && slide.videoUrl ? (
                 <a
-                  href={slide.externalUrl}
+                  href={slide.videoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -57,9 +57,9 @@ export default function BannerCarousel() {
                     <span className={slide.buttonColor}>{slide.buttonText}</span>
                   </Button>
                 </a>
-              ) : slide.isVideo ? (
+              ) : slide.isExternal && slide.externalUrl ? (
                 <a
-                  href={slide.videoUrl}
+                  href={slide.externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
