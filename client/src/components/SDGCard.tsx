@@ -16,10 +16,6 @@ export default function SDGCard({ goal }: SDGCardProps) {
   const handleAddToCart = () => {
     if (!isItemInCart(goal.id)) {
       addItem(goal);
-      toast({
-        title: "목표 선택됨",
-        description: `"${goal.title}" 목표가 선택되었습니다!`,
-      });
     }
   };
 

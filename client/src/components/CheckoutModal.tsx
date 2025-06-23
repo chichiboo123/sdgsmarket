@@ -84,6 +84,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
         actionPlanText: data.actionPlanText || '',
         drawingData: drawingData,
         deliveryMemos: data.deliveryMemos || [],
+        paymentMethod: data.paymentMethod || [],
       };
 
       // Create student
@@ -152,7 +153,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               {/* Student Information */}
               <div className="bg-gray-50 p-4 rounded-xl">
-                <h4 className="font-semibold text-gray-900 mb-4">학생 정보</h4>
+                <h4 className="font-semibold text-gray-900 mb-4">주문자 정보</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
@@ -172,7 +173,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
                     name="school"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>학교명</FormLabel>
+                        <FormLabel>학교명 *</FormLabel>
                         <FormControl>
                           <Input placeholder="학교명을 입력하세요" {...field} />
                         </FormControl>
@@ -332,7 +333,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
 
               {/* Action Plan */}
               <div className="bg-gray-50 p-4 rounded-xl">
-                <h4 className="font-semibold text-gray-900 mb-4">실천계획 입력</h4>
+                <h4 className="font-semibold text-gray-900 mb-4">실천계획</h4>
                 <div className="space-y-4">
                   <FormField
                     control={form.control}

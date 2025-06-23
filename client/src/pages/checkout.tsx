@@ -83,6 +83,7 @@ export default function Checkout() {
         actionPlanText: data.actionPlanText || '',
         drawingData: drawingData,
         deliveryMemos: data.deliveryMemos || [],
+        paymentMethod: data.paymentMethod || [],
       };
 
       // Create student
@@ -158,7 +159,7 @@ export default function Checkout() {
             {/* Student Information */}
             <Card>
               <CardHeader>
-                <CardTitle>학생 정보</CardTitle>
+                <CardTitle>주문자 정보</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -180,7 +181,7 @@ export default function Checkout() {
                     name="school"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>학교명</FormLabel>
+                        <FormLabel>학교명 *</FormLabel>
                         <FormControl>
                           <Input placeholder="학교명을 입력하세요" {...field} />
                         </FormControl>
@@ -352,7 +353,7 @@ export default function Checkout() {
             {/* Action Plan */}
             <Card>
               <CardHeader>
-                <CardTitle>실천계획 입력</CardTitle>
+                <CardTitle>실천계획</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <FormField
