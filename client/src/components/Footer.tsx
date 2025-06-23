@@ -7,7 +7,7 @@ export default function Footer() {
           href="https://litt.ly/chichiboo" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm block"
+          className="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm block footer-text"
         >
           created by. 교육뮤지컬 꿈꾸는 치수쌤
         </a>

@@ -1,6 +1,7 @@
 import { Link } from 'wouter';
 import { ShoppingCart, Globe } from 'lucide-react';
 import { useCart } from '@/hooks/use-cart';
+import logoPath from '@/assets/logo.png';
 
 export default function Header() {
   const { count } = useCart();
@@ -12,12 +13,12 @@ export default function Header() {
           {/* Logo */}
           <Link href="/">
             <div className="flex items-center gap-2 cursor-pointer">
-              <img src="/src/assets/logo-sdgs-market.png" alt="SDGs 마켓 로고" className="w-10 h-10" />
+              <img src={logoPath} alt="SDGs 마켓 로고" className="w-12 h-12" />
               <div>
-                <h1 className="text-2xl font-bold text-slate-800 site-title" style={{ fontFamily: "'Do Hyeon', sans-serif" }}>
+                <h1 className="site-title">
                   SDGs 마켓
                 </h1>
-                <p className="text-xs text-gray-600">지속가능발전목표 쇼핑몰</p>
+                <p className="text-sm text-gray-600 font-medium">지속가능발전목표 쇼핑몰</p>
               </div>
             </div>
           </Link>
