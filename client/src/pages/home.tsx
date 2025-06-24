@@ -10,7 +10,7 @@ import SDGCard from '@/components/SDGCard';
 import CartModal from '@/components/CartModal';
 import CartSummaryBar from '@/components/CartSummaryBar';
 import BannerCarousel from '@/components/BannerCarousel';
-import { GitHubPagesNotice } from '@/components/ui/github-pages-notice';
+import GitHubPagesNotice from '@/components/ui/github-pages-notice';
 import { sdgGoals } from '@/lib/sdgData';
 
 export default function Home() {
