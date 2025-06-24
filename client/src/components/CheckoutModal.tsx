@@ -225,19 +225,10 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
               <div className="bg-gray-50 p-4 rounded-xl">
                 <h4 className="font-semibold text-gray-900 mb-4">배송 정보(선택)</h4>
                 <div className="space-y-4">
-                  <FormField
-                    control={form.control}
-                    name="school"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>학교명</FormLabel>
-                        <FormControl>
-                          <Input placeholder="배송받을 학교명을 입력하세요" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  /></div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">학교명</label>
+                    <Input placeholder="배송받을 학교명을 입력하세요" />
+                  </div>
                   <FormField
                     control={form.control}
                     name="deliveryMemos"
