@@ -17,7 +17,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
-import { apiRequest } from '@/lib/queryClient';
+import { createStudent, createActionPlan } from '@/lib/mockApi';
 
 const formSchema = z.object({
   name: z.string().min(1, '이름을 입력하세요'),
@@ -88,15 +88,13 @@ export default function Checkout() {
       };
 
       // Create student
-      const studentResponse = await apiRequest('POST', '/api/students', studentData);
-      const student = await studentResponse.json();
+      const student = await createStudent(studentData);
 
       // Create action plan
-      const actionPlanResponse = await apiRequest('POST', '/api/action-plans', {
+      const actionPlan = await createActionPlan({
         ...actionPlanData,
         studentId: student.id,
       });
-      const actionPlan = await actionPlanResponse.json();
 
       setReceiptData({
         student,

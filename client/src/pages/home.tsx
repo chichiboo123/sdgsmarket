@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import BannerCarousel from '@/components/BannerCarousel';
 import SDGCard from '@/components/SDGCard';
 import CartSummaryBar from '@/components/CartSummaryBar';
+import { GitHubPagesNotice } from '@/components/ui/github-pages-notice';
 import { sdgGoals } from '@/lib/sdgData';
 import { useCart } from '@/hooks/use-cart';
 
@@ -14,6 +16,8 @@ export default function Home() {
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <GitHubPagesNotice />
+        
         {/* Educational Banner Carousel */}
         <section className="mb-12">
           <BannerCarousel />

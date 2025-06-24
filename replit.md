@@ -102,6 +102,13 @@ This is a full-stack educational web application designed to teach students abou
 - Development-specific Vite plugins for error handling
 - Production-optimized builds with asset bundling
 
+## Recent Changes
+- June 24, 2025: GitHub Pages 배포 설정 완료
+  - API 호출을 로컬 스토리지 기반으로 변경
+  - GitHub Actions 워크플로우 추가
+  - 프론트엔드 전용 버전으로 완전 변경
+  - 모든 기능이 정적 호스팅에서 작동 가능
+
 ## Changelog
 - June 24, 2025. Initial setup
 
