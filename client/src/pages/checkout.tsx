@@ -243,9 +243,9 @@ export default function Checkout() {
                   name="deliverySchool"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>배송받을 학교명</FormLabel>
+                      <FormLabel>배송지 주소</FormLabel>
                       <FormControl>
-                        <Input placeholder="배송받을 학교명을 입력하세요" {...field} />
+                        <Input placeholder="배송지를 입력하세요" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
