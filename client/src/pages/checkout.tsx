@@ -24,6 +24,7 @@ const formSchema = z.object({
   school: z.string().min(1, '학교명을 입력하세요'),
   grade: z.string().min(1, '학년을 선택하세요'),
   class: z.string().optional(),
+  deliverySchool: z.string().optional(),
   planMethod: z.enum(['text', 'drawing', 'both']),
   actionPlanText: z.string().optional(),
   deliveryMemos: z.array(z.string()).optional(),
@@ -59,6 +60,7 @@ export default function Checkout() {
       school: '',
       grade: '',
       class: '',
+      deliverySchool: '',
       planMethod: 'text',
       actionPlanText: '',
       deliveryMemos: [],
@@ -238,12 +240,12 @@ export default function Checkout() {
               <CardContent className="space-y-4">
                 <FormField
                   control={form.control}
-                  name="school"
+                  name="deliverySchool"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>학교명</FormLabel>
+                      <FormLabel>배송받을 학교명</FormLabel>
                       <FormControl>
-                        <Input placeholder="학교명을 입력하세요" {...field} />
+                        <Input placeholder="배송받을 학교명을 입력하세요" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
