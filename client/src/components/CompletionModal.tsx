@@ -18,10 +18,10 @@ export default function CompletionModal({ open, onOpenChange, onStartOver }: Com
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center text-xl font-bold text-green-600 mb-4">
-            환영합니다! 🎁
+            환영합니다!
           </DialogTitle>
         </DialogHeader>
-        
+
         <div className="text-center p-6 space-y-4">
           <div className="text-4xl mb-4">🌍</div>
           <div className="space-y-3">
@@ -35,10 +35,10 @@ export default function CompletionModal({ open, onOpenChange, onStartOver }: Com
               작은 실천이 모여 큰 변화를 만들어냅니다.
             </p>
             <p className="text-gray-700 font-medium">
-              함께 만드는 더 나은 세상, 지금 시작해요! 🌍
+              함께 만드는 더 나은 세상, 지금 시작해요!
             </p>
           </div>
-          
+
           <div className="pt-6">
             <Button 
               onClick={handleStartOver}

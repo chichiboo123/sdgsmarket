@@ -150,9 +150,9 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
         <div className="p-6">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {/* Student Information */}
+              {/* Order Information */}
               <div className="bg-gray-50 p-4 rounded-xl">
-                <h4 className="font-semibold text-gray-900 mb-4">학생 정보</h4>
+                <h4 className="font-semibold text-gray-900 mb-4">주문자 정보</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
@@ -172,7 +172,7 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
                     name="school"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>학교명</FormLabel>
+                        <FormLabel>학교명 *</FormLabel>
                         <FormControl>
                           <Input placeholder="학교명을 입력하세요" {...field} />
                         </FormControl>
@@ -225,10 +225,19 @@ export default function CheckoutModal({ open, onOpenChange, onReceiptGenerated }
               <div className="bg-gray-50 p-4 rounded-xl">
                 <h4 className="font-semibold text-gray-900 mb-4">배송 정보(선택)</h4>
                 <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">학교명</label>
-                    <Input value="학교" readOnly className="bg-gray-100" />
-                  </div>
+                  <FormField
+                    control={form.control}
+                    name="school"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>학교명</FormLabel>
+                        <FormControl>
+                          <Input placeholder="배송받을 학교명을 입력하세요" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  /></div>
                   <FormField
                     control={form.control}
                     name="deliveryMemos"
