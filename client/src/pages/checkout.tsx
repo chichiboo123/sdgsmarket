@@ -180,7 +180,7 @@ export default function Checkout() {
                     name="school"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>학교명</FormLabel>
+                        <FormLabel>학교명 *</FormLabel>
                         <FormControl>
                           <Input placeholder="학교명을 입력하세요" {...field} />
                         </FormControl>
@@ -236,10 +236,19 @@ export default function Checkout() {
                 <CardTitle>배송 정보(선택)</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">학교명</label>
-                  <Input value="학교" readOnly className="bg-gray-100" />
-                </div>
+                <FormField
+                  control={form.control}
+                  name="school"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>학교명</FormLabel>
+                      <FormControl>
+                        <Input placeholder="학교명을 입력하세요" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="deliveryMemos"
