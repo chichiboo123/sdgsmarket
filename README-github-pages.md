@@ -16,6 +16,8 @@
 ✅ **빌드 설정 최적화**
 - `build-gh-pages.js`로 GitHub Pages 전용 빌드 스크립트 생성
 - 자동 리포지토리 경로 설정
+- Wouter 라우터 base path 자동 설정
+- SPA 라우팅을 위한 404.html 및 index.html 스크립트 추가
 
 ## 배포 방법
 

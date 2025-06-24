@@ -107,6 +107,8 @@ This is a full-stack educational web application designed to teach students abou
   - API 호출을 로컬 스토리지 기반으로 변경
   - GitHub Actions 워크플로우 추가
   - 프론트엔드 전용 버전으로 완전 변경
+  - Wouter 라우터 base path 자동 설정
+  - SPA 라우팅 문제 해결 (404.html, index.html 스크립트)
   - 모든 기능이 정적 호스팅에서 작동 가능
 
 ## Changelog
