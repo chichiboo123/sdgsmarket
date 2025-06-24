@@ -23,7 +23,6 @@ export default function CompletionModal({ open, onOpenChange, onStartOver }: Com
         </DialogHeader>
 
         <div className="text-center p-6 space-y-4">
-          <div className="text-4xl mb-4">🌍</div>
           <div className="space-y-3">
             <p className="text-lg font-semibold text-gray-800">
               SDGs 구입을 축하합니다!
