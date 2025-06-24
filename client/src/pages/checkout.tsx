@@ -158,7 +158,7 @@ export default function Checkout() {
             {/* Student Information */}
             <Card>
               <CardHeader>
-                <CardTitle>학생 정보</CardTitle>
+                <CardTitle>주문자 정보</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
