@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import BannerCarousel from '@/components/BannerCarousel';
-import SDGCard from '@/components/SDGCard';
-import CartSummaryBar from '@/components/CartSummaryBar';
+import { useCart } from '@/hooks/use-cart';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Search, ShoppingCart, Plus, Heart, Star, Globe, Users, Leaf } from 'lucide-react';
+import { SDGCard } from '@/components/SDGCard';
+import { CartModal } from '@/components/CartModal';
+import { CartSummaryBar } from '@/components/CartSummaryBar';
+import { BannerCarousel } from '@/components/BannerCarousel';
 import { GitHubPagesNotice } from '@/components/ui/github-pages-notice';
 import { sdgGoals } from '@/lib/sdgData';
-import { useCart } from '@/hooks/use-cart';
 
 export default function Home() {
   const { count } = useCart();
@@ -14,10 +18,10 @@ export default function Home() {
   return (
     <div className="bg-gray-50 min-h-screen">
       <Header />
-      
+
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <GitHubPagesNotice />
-        
+
         {/* Educational Banner Carousel */}
         <section className="mb-12">
           <BannerCarousel />
