@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDGs 마켓 - 지속가능발전목표 쇼핑몰</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Do+Hyeon&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f9fafb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-title {
+            font-family: 'Do Hyeon', sans-serif;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #1e40af, #059669, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        @media (min-width: 768px) {
+            .site-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1e40af, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .cart-btn {
+            position: relative;
+            padding: 0.5rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: #374151;
+        }
+
+        .cart-btn:hover {
+            color: #2563eb;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #f97316;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Banner Carousel */
+        .carousel {
+            position: relative;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 3rem;
+            height: 300px;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide-1 { background: linear-gradient(135deg, #bae6fd, #c7d2fe); }
+        .carousel-slide-2 { background: linear-gradient(135deg, #e9d5ff, #fbcfe8); }
+        .carousel-slide-3 { background: linear-gradient(135deg, #fed7aa, #fecaca); }
+
+        .carousel-content {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .carousel-content h2 {
+            font-family: 'Do Hyeon', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+
+        .carousel-content p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+        }
+
+        .carousel-btn {
+            display: inline-block;
+            background: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .carousel-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            opacity: 0.5;
+            cursor: pointer;
+            border: none;
+        }
+
+        .carousel-dot.active {
+            opacity: 1;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .carousel-arrow.left { left: 1rem; }
+        .carousel-arrow.right { right: 1rem; }
+
+        /* SDG Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Do Hyeon', sans-serif;
+            font-size: 2rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            font-family: 'Do Hyeon', sans-serif;
+            font-size: 1.25rem;
+            color: #4b5563;
+        }
+
+        /* SDG Grid */
+        .sdg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .sdg-card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .sdg-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .sdg-card-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .sdg-card-content {
+            padding: 1.5rem;
+        }
+
+        .sdg-card-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+
+        .sdg-card h3 {
+            font-weight: bold;
+            font-size: 1.125rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .sdg-card p {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .sdg-card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .btn-primary {
+            background: #f97316;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ea580c;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Cart Summary Bar */
+        .cart-summary-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 1rem;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 40;
+        }
+
+        .cart-summary-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cart-summary-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            ring: 2px solid rgba(59, 130, 246, 0.5);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            background: white;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            min-height: 120px;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-radio {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Canvas */
+        .drawing-canvas-container {
+            background: white;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .drawing-canvas {
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            width: 100%;
+            max-width: 600px;
+            cursor: crosshair;
+            touch-action: none;
+        }
+
+        .canvas-controls {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 0.75rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #9ca3af;
+        }
+
+        .modal-close:hover {
+            color: #4b5563;
+        }
+
+        /* Receipt */
+        .receipt {
+            background: white;
+            padding: 2rem;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 1px solid #d1d5db;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .receipt-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .receipt-section h3 {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .receipt-info-box {
+            background: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .receipt-footer {
+            text-align: center;
+            border-top: 1px solid #d1d5db;
+            padding-top: 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-link {
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-family: 'Do Hyeon', sans-serif;
+        }
+
+        .footer-link:hover {
+            color: #2563eb;
+        }
+
+        .footer-note {
+            margin-top: 0.5rem;
+            color: #9ca3af;
+            font-size: 0.75rem;
+        }
+
+        /* Utility */
+        .hidden {
+            display: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #1f2937;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            z-index: 200;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .toast-description {
+            font-size: 0.875rem;
+            color: #d1d5db;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo" onclick="navigateTo('home'); return false;">
+                <div class="logo-icon">🌍</div>
+                <div>
+                    <h1 class="site-title">SDGs 마켓</h1>
+                    <p style="font-size: 0.875rem; color: #6b7280;">지속가능발전목표 쇼핑몰</p>
+                </div>
+            </a>
+            <button class="cart-btn" onclick="navigateTo('cart')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span id="cart-badge" class="cart-badge hidden">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <div id="home-page" class="page active">
+            <!-- Banner Carousel -->
+            <div class="carousel">
+                <div class="carousel-slide carousel-slide-1 active">
+                    <div class="carousel-content">
+                        <h2>SDGs란 무엇인가요?</h2>
+                        <p>지속가능발전목표에 대해 알아보세요</p>
+                        <a href="https://www.odakorea.go.kr/teen/cont/ContShow?cont_seq=32" target="_blank" class="carousel-btn">자세히 살펴보기 ↗</a>
+                    </div>
+                </div>
+                <div class="carousel-slide carousel-slide-2">
+                    <div class="carousel-content">
+                        <h2>SDGs 17개의 목표</h2>
+                        <p>2030년까지 달성해야 할 17개 목표를 확인하세요</p>
+                        <a href="https://www.odakorea.go.kr/teen/NationalSustainableDevelopmentGoals" target="_blank" class="carousel-btn">목표 보기 ↗</a>
+                    </div>
+                </div>
+                <div class="carousel-slide carousel-slide-3">
+                    <div class="carousel-content">
+                        <h2>SDGs 애니메이션</h2>
+                        <p>쉽고 재미있게 SDGs를 이해해보세요</p>
+                        <a href="https://youtu.be/kwzSaqlcpHI?feature=shared" target="_blank" class="carousel-btn">영상 보기 ↗</a>
+                    </div>
+                </div>
+                <button class="carousel-arrow left" onclick="previousSlide()">‹</button>
+                <button class="carousel-arrow right" onclick="nextSlide()">›</button>
+                <div class="carousel-dots">
+                    <button class="carousel-dot active" onclick="goToSlide(0)"></button>
+                    <button class="carousel-dot" onclick="goToSlide(1)"></button>
+                    <button class="carousel-dot" onclick="goToSlide(2)"></button>
+                </div>
+            </div>
+
+            <!-- SDG Goals Section -->
+            <div class="section-title">
+                <h2>판매중인 상품</h2>
+                <p>SDGs 지속가능발전목표 17개</p>
+            </div>
+
+            <div id="sdg-grid" class="sdg-grid"></div>
+        </div>
+
+        <!-- Cart Page -->
+        <div id="cart-page" class="page">
+            <div class="mb-4">
+                <button class="btn btn-secondary" onclick="navigateTo('home')" style="width: auto;">
+                    ← 돌아가기
+                </button>
+                <h1 style="font-size: 1.5rem; font-weight: bold; margin-top: 1rem;">선택한 SDGs 목표</h1>
+            </div>
+
+            <div id="cart-content"></div>
+        </div>
+
+        <!-- Checkout Page -->
+        <div id="checkout-page" class="page">
+            <div class="mb-4">
+                <button class="btn btn-secondary" onclick="navigateTo('cart')" style="width: auto;">
+                    ← 장바구니로
+                </button>
+                <h1 style="font-size: 1.5rem; font-weight: bold; margin-top: 1rem;">실천계획 세우기</h1>
+            </div>
+
+            <form id="checkout-form" onsubmit="handleCheckout(event)">
+                <!-- Student Information -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title">주문자 정보</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">이름 *</label>
+                                <input type="text" class="form-input" name="name" required placeholder="이름을 입력하세요">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">학교명 *</label>
+                                <input type="text" class="form-input" name="school" required placeholder="학교명을 입력하세요">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">학년 *</label>
+                                <select class="form-select" name="grade" required>
+                                    <option value="">학년 선택</option>
+                                    <option value="1">1학년</option>
+                                    <option value="2">2학년</option>
+                                    <option value="3">3학년</option>
+                                    <option value="4">4학년</option>
+                                    <option value="5">5학년</option>
+                                    <option value="6">6학년</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">반</label>
+                                <input type="text" class="form-input" name="class" placeholder="반을 입력하세요">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Info -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title">배송 정보(선택)</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="form-group">
+                            <label class="form-label">배송지 주소</label>
+                            <input type="text" class="form-input" name="deliverySchool" placeholder="배송지를 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">배송 메모(선택)</label>
+                            <div class="space-y-2">
+                                <label class="form-checkbox">
+                                    <input type="checkbox" name="deliveryMemos" value="빠른 배송을 원해요">
+                                    <span>빠른 배송을 원해요</span>
+                                </label>
+                                <label class="form-checkbox">
+                                    <input type="checkbox" name="deliveryMemos" value="문 앞에 놓아주세요">
+                                    <span>문 앞에 놓아주세요</span>
+                                </label>
+                                <label class="form-checkbox">
+                                    <input type="checkbox" name="deliveryMemos" value="실천하지 않을시 알람주세요">
+                                    <span>실천하지 않을시 알람주세요</span>
+                                </label>
+                                <label class="form-checkbox">
+                                    <input type="checkbox" name="deliveryMemos" value="부재시 친구에게 맡겨주세요">
+                                    <span>부재시 친구에게 맡겨주세요</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Items -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title">주문상품 정보</h3>
+                    </div>
+                    <div class="card-content">
+                        <div id="checkout-items" class="space-y-2"></div>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title">결제수단 선택(실천방식)</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="space-y-2">
+                            <label class="form-checkbox">
+                                <input type="checkbox" name="paymentMethod" value="think" required>
+                                <span>🤔 생각하기</span>
+                            </label>
+                            <label class="form-checkbox">
+                                <input type="checkbox" name="paymentMethod" value="empathize">
+                                <span>💝 공감하기</span>
+                            </label>
+                            <label class="form-checkbox">
+                                <input type="checkbox" name="paymentMethod" value="action">
+                                <span>🚀 행동하기</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Plan -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title">실천계획 입력</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="form-group">
+                            <label class="form-label">실천계획 방법 선택</label>
+                            <div class="flex gap-2">
+                                <label class="form-radio">
+                                    <input type="radio" name="planMethod" value="text" checked onchange="updatePlanMethod()">
+                                    <span>글로 작성</span>
+                                </label>
+                                <label class="form-radio">
+                                    <input type="radio" name="planMethod" value="drawing" onchange="updatePlanMethod()">
+                                    <span>그림으로 작성</span>
+                                </label>
+                                <label class="form-radio">
+                                    <input type="radio" name="planMethod" value="both" onchange="updatePlanMethod()">
+                                    <span>글과 그림 모두</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="text-plan" class="form-group">
+                            <label class="form-label">나의 실천계획</label>
+                            <textarea class="form-textarea" name="actionPlanText" placeholder="선택한 SDGs 목표를 위해 어떤 실천을 할 것인지 구체적으로 작성해보세요."></textarea>
+                        </div>
+
+                        <div id="drawing-plan" class="form-group hidden">
+                            <label class="form-label">그림으로 실천계획 그리기</label>
+                            <div class="drawing-canvas-container">
+                                <canvas id="drawing-canvas" class="drawing-canvas" width="600" height="400"></canvas>
+                                <div class="canvas-controls">
+                                    <button type="button" class="btn btn-secondary" onclick="clearCanvas()">지우기</button>
+                                    <div class="flex items-center gap-2">
+                                        <label style="font-size: 0.875rem; color: #6b7280;">색상:</label>
+                                        <input type="color" id="brush-color" value="#000000" style="width: 32px; height: 32px; border: 1px solid #d1d5db; border-radius: 0.25rem; cursor: pointer;">
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <label style="font-size: 0.875rem; color: #6b7280;">굵기:</label>
+                                        <input type="range" id="brush-size" min="1" max="10" value="3" style="width: 64px;">
+                                        <span id="brush-size-display" style="font-size: 0.875rem; color: #6b7280;">3</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between gap-2">
+                    <button type="button" class="btn btn-secondary" onclick="navigateTo('cart')">취소</button>
+                    <button type="submit" class="btn btn-primary">구매하기</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Cart Summary Bar -->
+    <div id="cart-summary-bar" class="cart-summary-bar hidden">
+        <div class="cart-summary-content">
+            <div class="cart-summary-info">
+                <span style="font-size: 0.875rem; color: #6b7280;">선택한 목표:</span>
+                <span id="cart-summary-count" style="font-weight: 600; color: #2563eb;">0개</span>
+            </div>
+            <button class="btn btn-primary" onclick="navigateTo('checkout')">실천계획 세우기</button>
+        </div>
+    </div>
+
+    <!-- Receipt Modal -->
+    <div id="receipt-modal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title">실천 영수증</h3>
+                <button class="modal-close" onclick="closeReceiptModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="receipt-content" class="receipt"></div>
+                <div class="flex justify-between gap-2 mb-4">
+                    <button class="btn btn-primary" onclick="downloadReceipt()">📥 영수증 다운로드</button>
+                    <button class="btn btn-secondary" onclick="printReceipt()">🖨️ 인쇄하기</button>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary" onclick="showCompletionModal()">완료</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Completion Modal -->
+    <div id="completion-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3 class="modal-title" style="color: #059669;">환영합니다!</h3>
+            </div>
+            <div class="modal-body text-center">
+                <div class="space-y-2">
+                    <p style="font-size: 1.125rem; font-weight: 600; color: #1f2937;">SDGs 구입을 축하합니다!</p>
+                    <p style="color: #4b5563;">당신의 선택이 지구를 위한 첫걸음이 되었어요.</p>
+                    <p style="color: #4b5563;">작은 실천이 모여 큰 변화를 만들어냅니다.</p>
+                    <p style="color: #4b5563; font-weight: 500;">함께 만드는 더 나은 세상, 지금 시작해요!</p>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 1.5rem; width: 100%; background: #2563eb;" onclick="completeAndReset()">처음으로</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <div class="toast-title" id="toast-title"></div>
+        <div class="toast-description" id="toast-description"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <a href="https://litt.ly/chichiboo" target="_blank" class="footer-link">
+                created by. 교육뮤지컬 꿈꾸는 치수쌤
+            </a>
+            <p class="footer-note">
+                이 웹페이지는 SDGs 교육을 위한 학습용 사이트로, 실제 결제나 상품 배송은 이루어지지 않습니다.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // SDG Goals Data
+        const sdgGoals = [
+            { id: 1, title: "빈곤 퇴치", subtitle: "모든 형태의 빈곤 종료", color: "#e5243b", icon: "🏠", description: "모든 곳에서 모든 형태의 빈곤 종식" },
+            { id: 2, title: "기아 종식", subtitle: "기아 종료, 식량안보 확보", color: "#dda63a", icon: "🌾", description: "기아 종식, 식량안보 달성, 개선된 영양상태의 달성과 지속가능한 농업 강화" },
+            { id: 3, title: "건강과 웰빙", subtitle: "모든 연령층의 건강한 삶 보장", color: "#4c9f38", icon: "💚", description: "모든 연령층을 위한 건강한 삶 보장과 웰빙 증진" },
+            { id: 4, title: "양질의 교육", subtitle: "모두를 위한 포용적이고 공평한 양질의 교육", color: "#c5192d", icon: "📚", description: "포용적이고 공평한 양질의 교육보장과 모두를 위한 평생학습 기회 증진" },
+            { id: 5, title: "성평등", subtitle: "성평등 달성 및 모든 여성과 소녀의 권한 강화", color: "#ff3a21", icon: "⚖️", description: "성평등 달성과 모든 여성 및 여아의 권익신장" },
+            { id: 6, title: "깨끗한 물과 위생", subtitle: "모두를 위한 물과 위생의 이용가능성과 지속가능한 관리", color: "#26bde2", icon: "💧", description: "모두를 위한 물과 위생의 이용가능성과 지속가능한 관리 보장" },
+            { id: 7, title: "모두를 위한 깨끗한 에너지", subtitle: "모두를 위한 저렴하고 신뢰할 수 있는 지속가능한 현대적 에너지", color: "#fcc30b", icon: "⚡", description: "모두를 위한 적정가격의 신뢰할 수 있고 지속가능하며 현대적인 에너지에 대한 접근 보장" },
+            { id: 8, title: "양질의 일자리와 경제성장", subtitle: "지속가능한 경제성장 및 완전고용과 양질의 일자리", color: "#a21942", icon: "💼", description: "지속적･포용적･지속가능한 경제성장, 완전하고 생산적인 고용과 모두를 위한 양질의 일자리 증진" },
+            { id: 9, title: "산업·혁신·사회기반시설", subtitle: "복원력 있는 인프라 구축, 지속가능한 산업화 증진", color: "#fd6925", icon: "🏭", description: "회복력 있는 사회기반시설 구축, 포용적이고 지속가능한 산업화 증진과 혁신 도모" },
+            { id: 10, title: "불평등 감소", subtitle: "국내 및 국가 간 불평등 감소", color: "#dd1367", icon: "🟰", description: "국내 및 국가 간 불평등 감소" },
+            { id: 11, title: "지속가능한 도시와 공동체", subtitle: "포용적이고 안전하며 복원력 있고 지속가능한 도시와 주거지", color: "#fd9d24", icon: "🏙️", description: "포용적이고 안전하며 회복력 있고 지속가능한 도시와 주거지 조성" },
+            { id: 12, title: "지속가능한 생산과 소비", subtitle: "지속가능한 소비와 생산 양식의 보장", color: "#bf8b2e", icon: "♻️", description: "지속가능한 소비와 생산 양식의 보장" },
+            { id: 13, title: "기후변화 대응", subtitle: "기후변화와 그로 인한 영향에 맞서기 위한 긴급 대응", color: "#3f7e44", icon: "🌍", description: "기후변화와 그로 인한 영향에 맞서기 위한 긴급 대응" },
+            { id: 14, title: "해양생태계 보존", subtitle: "지속가능발전을 위한 대양, 바다, 해양자원의 보전과 지속가능한 이용", color: "#0a97d9", icon: "🐠", description: "지속가능발전을 위하여 대양, 바다, 해양자원의 보전과 지속 가능한 이용" },
+            { id: 15, title: "육상생태계 보존", subtitle: "육상 생태계 보호, 복원 및 지속가능한 이용 증진", color: "#56c02b", icon: "🌳", description: "육상생태계 보호, 복원 및 지속가능한 이용 증진, 지속가능한 산림 관리, 사막화 방지, 토지황폐화 중지와 회복, 생물다양성 손실 중단" },
+            { id: 16, title: "정의 · 평화 · 효과적인 제도", subtitle: "평화롭고 포용적인 사회 증진", color: "#00689d", icon: "⚖️", description: "지속가능발전을 위한 평화롭고 포용적인 사회 증진, 모두에게 정의 보장과 모든 수준에서 효과적이고 책임성 있으며 포용적인 제도 구축" },
+            { id: 17, title: "글로벌 파트너쉽", subtitle: "지속가능발전을 위한 글로벌 파트너십 강화", color: "#19486a", icon: "🤝", description: "이행수단 강화와 지속가능발전을 위한 글로벌 파트너십 재활성화" }
+        ];
+
+        // Local Storage Cart Management
+        const CART_KEY = 'sdg-cart-storage';
+
+        function getCart() {
+            const stored = localStorage.getItem(CART_KEY);
+            if (stored) {
+                try {
+                    const data = JSON.parse(stored);
+                    return data.state?.items || [];
+                } catch (e) {
+                    return [];
+                }
+            }
+            return [];
+        }
+
+        function saveCart(items) {
+            localStorage.setItem(CART_KEY, JSON.stringify({ state: { items } }));
+            updateCartBadge();
+            updateCartSummaryBar();
+        }
+
+        function addToCart(goal) {
+            const cart = getCart();
+            if (!cart.find(item => item.id === goal.id)) {
+                cart.push(goal);
+                saveCart(cart);
+                showToast('목표 선택됨', `"${goal.title}" 목표가 선택되었습니다!`);
+            }
+        }
+
+        function removeFromCart(goalId) {
+            const cart = getCart();
+            const filtered = cart.filter(item => item.id !== goalId);
+            saveCart(filtered);
+            renderCartPage();
+        }
+
+        function clearCart() {
+            saveCart([]);
+            renderCartPage();
+        }
+
+        function isInCart(goalId) {
+            const cart = getCart();
+            return cart.some(item => item.id === goalId);
+        }
+
+        // Navigation
+        function navigateTo(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`${page}-page`).classList.add('active');
+
+            if (page === 'cart') {
+                renderCartPage();
+            } else if (page === 'checkout') {
+                renderCheckoutPage();
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        // Cart Badge
+        function updateCartBadge() {
+            const cart = getCart();
+            const badge = document.getElementById('cart-badge');
+            if (cart.length > 0) {
+                badge.textContent = cart.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        // Cart Summary Bar
+        function updateCartSummaryBar() {
+            const cart = getCart();
+            const bar = document.getElementById('cart-summary-bar');
+            const count = document.getElementById('cart-summary-count');
+
+            if (cart.length > 0 && document.getElementById('home-page').classList.contains('active')) {
+                bar.classList.remove('hidden');
+                count.textContent = `${cart.length}개`;
+            } else {
+                bar.classList.add('hidden');
+            }
+        }
+
+        // Carousel
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function showSlide(index) {
+            document.querySelectorAll('.carousel-slide').forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        // Auto-rotate carousel
+        setInterval(nextSlide, 5000);
+
+        // Render SDG Cards
+        function renderSDGCards() {
+            const grid = document.getElementById('sdg-grid');
+            grid.innerHTML = sdgGoals.map(goal => `
+                <div class="sdg-card">
+                    <div class="sdg-card-icon" style="background-color: ${goal.color}20">
+                        <span style="font-size: 3rem;">${goal.icon}</span>
+                    </div>
+                    <div class="sdg-card-content">
+                        <span class="sdg-card-badge" style="background-color: ${goal.color}">목표 ${goal.id}</span>
+                        <h3>${goal.title}</h3>
+                        <p>${goal.description}</p>
+                        <div class="sdg-card-actions">
+                            <button class="btn btn-secondary" onclick="addToCart(${JSON.stringify(goal).replace(/"/g, '&quot;')})" ${isInCart(goal.id) ? 'disabled' : ''}>
+                                🛒 ${isInCart(goal.id) ? '선택됨' : '선택하기'}
+                            </button>
+                            <button class="btn btn-primary" onclick="quickPurchase(${JSON.stringify(goal).replace(/"/g, '&quot;')})">
+                                ⚡ 바로실천
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function quickPurchase(goal) {
+            if (!isInCart(goal.id)) {
+                addToCart(goal);
+            }
+            navigateTo('checkout');
+        }
+
+        // Render Cart Page
+        function renderCartPage() {
+            const cart = getCart();
+            const container = document.getElementById('cart-content');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="card-content text-center" style="padding: 3rem;">
+                            <p style="color: #6b7280; font-size: 1.125rem;">선택한 목표가 없습니다.</p>
+                            <button class="btn btn-primary" onclick="navigateTo('home')" style="margin-top: 1rem;">목표 선택하러 가기</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="space-y-2 mb-4">
+                        ${cart.map(goal => `
+                            <div class="card">
+                                <div class="card-content" style="padding: 1.5rem;">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <div style="width: 64px; height: 64px; background-color: ${goal.color}20; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                                                ${goal.icon}
+                                            </div>
+                                            <div>
+                                                <h3 style="font-weight: bold; font-size: 1.125rem; color: #1f2937;">${goal.title}</h3>
+                                                <p style="font-size: 0.875rem; color: #6b7280;">목표 ${goal.id}</p>
+                                                <p style="font-size: 0.875rem; color: #9ca3af; margin-top: 0.25rem;">${goal.subtitle}</p>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-secondary" onclick="removeFromCart(${goal.id})" style="color: #dc2626;">
+                                            🗑️
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="flex items-center justify-between mb-4">
+                                <span style="font-size: 1.125rem; font-weight: 600;">총 선택한 목표:</span>
+                                <span style="font-size: 1.125rem; font-weight: bold; color: #f97316;">${cart.length}개</span>
+                            </div>
+                            <button class="btn btn-primary" onclick="navigateTo('checkout')" style="width: 100%; padding: 0.75rem;">
+                                실천계획 입력하기
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Render Checkout Page
+        function renderCheckoutPage() {
+            const cart = getCart();
+            const container = document.getElementById('checkout-items');
+
+            if (cart.length === 0) {
+                navigateTo('home');
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center gap-2" style="padding: 0.75rem; background: #f9fafb; border-radius: 0.5rem; border: 1px solid #e5e7eb;">
+                    <div style="font-size: 2rem;">${item.icon}</div>
+                    <div style="flex: 1;">
+                        <h5 style="font-weight: 500; color: #1f2937;">${item.title}</h5>
+                        <p style="font-size: 0.875rem; color: #6b7280;">${item.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Canvas Drawing
+        let isDrawing = false;
+        let canvas, ctx;
+
+        function initCanvas() {
+            canvas = document.getElementById('drawing-canvas');
+            if (!canvas) return;
+
+            ctx = canvas.getContext('2d');
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Mouse events
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            // Touch events
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+
+            // Brush controls
+            document.getElementById('brush-size').addEventListener('input', (e) => {
+                document.getElementById('brush-size-display').textContent = e.target.value;
+            });
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+
+            ctx.lineWidth = document.getElementById('brush-size').value;
+            ctx.strokeStyle = document.getElementById('brush-color').value;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        function stopDrawing() {
+            if (isDrawing) {
+                isDrawing = false;
+                ctx.beginPath();
+            }
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function updatePlanMethod() {
+            const method = document.querySelector('input[name="planMethod"]:checked').value;
+            const textPlan = document.getElementById('text-plan');
+            const drawingPlan = document.getElementById('drawing-plan');
+
+            textPlan.classList.toggle('hidden', method === 'drawing');
+            drawingPlan.classList.toggle('hidden', method === 'text');
+
+            if (method !== 'text') {
+                setTimeout(initCanvas, 100);
+            }
+        }
+
+        // Handle Checkout
+        function handleCheckout(e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const cart = getCart();
+
+            const studentData = {
+                name: formData.get('name'),
+                school: formData.get('school'),
+                grade: formData.get('grade'),
+                class: formData.get('class') || ''
+            };
+
+            const deliveryMemos = formData.getAll('deliveryMemos');
+            const paymentMethods = formData.getAll('paymentMethod');
+
+            if (paymentMethods.length === 0) {
+                showToast('오류', '결제수단을 최소 1개 이상 선택해주세요.');
+                return;
+            }
+
+            const planMethod = formData.get('planMethod');
+            let drawingData = '';
+
+            if (planMethod === 'drawing' || planMethod === 'both') {
+                drawingData = canvas.toDataURL();
+            }
+
+            const receiptData = {
+                student: studentData,
+                actionPlan: {
+                    planMethod,
+                    actionPlanText: formData.get('actionPlanText') || '',
+                    drawingData,
+                    deliveryMemos
+                },
+                sdgGoals: cart,
+                date: new Date().toLocaleDateString('ko-KR'),
+                time: new Date().toLocaleTimeString('ko-KR')
+            };
+
+            showReceiptModal(receiptData);
+        }
+
+        // Receipt Modal
+        let currentReceiptData = null;
+
+        function showReceiptModal(receiptData) {
+            currentReceiptData = receiptData;
+            const modal = document.getElementById('receipt-modal');
+            const content = document.getElementById('receipt-content');
+
+            content.innerHTML = `
+                <div class="receipt-header">
+                    <h2 style="font-size: 1.5rem; font-weight: bold; color: #2563eb; margin-bottom: 0.5rem;">SDGs 마켓</h2>
+                    <p style="font-size: 1.125rem; font-weight: 600;">실천 영수증</p>
+                    <p style="font-size: 0.875rem; color: #6b7280;">${receiptData.date} ${receiptData.time}</p>
+                </div>
+
+                <div class="receipt-section">
+                    <h3>주문자 정보</h3>
+                    <div class="receipt-info-box">
+                        <p><strong>이름:</strong> ${receiptData.student.name}</p>
+                        <p><strong>학교:</strong> ${receiptData.student.school}</p>
+                        <p><strong>학년/반:</strong> ${receiptData.student.grade}학년 ${receiptData.student.class}</p>
+                    </div>
+                </div>
+
+                <div class="receipt-section">
+                    <h3>선택한 SDGs 목표</h3>
+                    <div>
+                        ${receiptData.sdgGoals.map(goal => `
+                            <div class="receipt-item">
+                                <div class="flex items-center gap-2">
+                                    <span>${goal.icon}</span>
+                                    <span>${goal.title}</span>
+                                </div>
+                                <span style="font-size: 0.875rem; color: #6b7280;">목표 ${goal.id}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div style="text-align: right; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #d1d5db;">
+                        <p style="font-weight: bold;">총 목표 수: ${receiptData.sdgGoals.length}개</p>
+                    </div>
+                </div>
+
+                ${(receiptData.actionPlan.actionPlanText || receiptData.actionPlan.drawingData) ? `
+                    <div class="receipt-section">
+                        <h3>나의 실천계획</h3>
+                        ${receiptData.actionPlan.actionPlanText ? `
+                            <div style="background: #eff6ff; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                                <p style="white-space: pre-wrap;">${receiptData.actionPlan.actionPlanText}</p>
+                            </div>
+                        ` : ''}
+                        ${receiptData.actionPlan.drawingData ? `
+                            <div style="background: #f9fafb; padding: 1rem; border-radius: 0.5rem;">
+                                <h4 style="font-size: 0.875rem; font-weight: 500; color: #4b5563; margin-bottom: 0.5rem;">그림으로 표현한 실천계획</h4>
+                                <img src="${receiptData.actionPlan.drawingData}" alt="실천계획 그림" style="max-width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 0.375rem;">
+                            </div>
+                        ` : ''}
+                    </div>
+                ` : ''}
+
+                <div class="receipt-footer">
+                    <p>이 영수증은 여러분의 지속가능발전목표 실천 의지를 나타내는 소중한 증명서입니다.</p>
+                    <p style="margin-top: 0.5rem; font-weight: 600; color: #f97316;">함께 만들어가는 더 나은 세상! 🌍</p>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receipt-modal').classList.remove('active');
+        }
+
+        function downloadReceipt() {
+            const receipt = document.getElementById('receipt-content');
+
+            const receiptHTML = receipt.innerHTML;
+            const blob = new Blob([`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="utf-8">
+                    <style>
+                        body { font-family: 'Noto Sans KR', sans-serif; padding: 20px; }
+                        .receipt-header { text-align: center; border-bottom: 1px solid #ccc; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+                        .receipt-section { margin-bottom: 1.5rem; }
+                        .receipt-info-box { background: #f9fafb; padding: 1rem; border-radius: 0.5rem; }
+                        .receipt-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb; }
+                        .receipt-footer { text-align: center; border-top: 1px solid #ccc; padding-top: 1rem; font-size: 0.875rem; color: #6b7280; }
+                    </style>
+                </head>
+                <body>
+                    ${receiptHTML}
+                </body>
+                </html>
+            `], { type: 'text/html' });
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'sdg-receipt.html';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+
+            showToast('다운로드 완료', '영수증이 다운로드되었습니다.');
+        }
+
+        function printReceipt() {
+            const receipt = document.getElementById('receipt-content');
+            const printWindow = window.open('', '_blank');
+
+            if (!printWindow) {
+                showToast('인쇄 실패', '팝업이 차단되었습니다. 팝업을 허용해주세요.');
+                return;
+            }
+
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="utf-8">
+                    <title>SDGs 실천 영수증</title>
+                    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+                    <style>
+                        body { font-family: 'Noto Sans KR', sans-serif; padding: 20px; line-height: 1.6; }
+                        .receipt-header { text-align: center; border-bottom: 1px solid #ccc; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+                        .receipt-section { margin-bottom: 1.5rem; }
+                        .receipt-section h3 { font-weight: 600; margin-bottom: 0.75rem; }
+                        .receipt-info-box { background: #f9fafb; padding: 1rem; border-radius: 0.5rem; }
+                        .receipt-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb; }
+                        .receipt-footer { text-align: center; border-top: 1px solid #ccc; padding-top: 1rem; font-size: 0.875rem; color: #6b7280; }
+                        @media print { body { margin: 0; } }
+                    </style>
+                </head>
+                <body>
+                    ${receipt.innerHTML}
+                </body>
+                </html>
+            `);
+
+            printWindow.document.close();
+            printWindow.focus();
+
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 250);
+
+            showToast('인쇄 준비 완료', '인쇄 창이 열렸습니다.');
+        }
+
+        function showCompletionModal() {
+            closeReceiptModal();
+            document.getElementById('completion-modal').classList.add('active');
+        }
+
+        function completeAndReset() {
+            document.getElementById('completion-modal').classList.remove('active');
+            clearCart();
+            navigateTo('home');
+            renderSDGCards();
+        }
+
+        // Toast Notification
+        function showToast(title, description) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').textContent = title;
+            document.getElementById('toast-description').textContent = description;
+
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSDGCards();
+            updateCartBadge();
+            updateCartSummaryBar();
+            initCanvas();
+
+            // Update cart summary bar on page change
+            setInterval(() => {
+                if (document.getElementById('home-page').classList.contains('active')) {
+                    updateCartSummaryBar();
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
