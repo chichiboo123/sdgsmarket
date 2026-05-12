@@ -206,7 +206,7 @@
         .carousel-arrow:hover { background: rgba(255,255,255,0.5); }
         .carousel-arrow.left { left: 0.75rem; }
         .carousel-arrow.right { right: 0.75rem; }
-        @media (max-width: 480px) { .carousel-arrow { display: none; } }
+        @media (max-width: 480px) { .carousel-arrow { width: 36px; height: 36px; background: rgba(17,24,39,0.45); } }
 
         /* ── SECTION TITLE ── */
         .section-title { text-align: center; margin-bottom: 1.25rem; }
@@ -296,7 +296,9 @@
         .sdgs-timeline-year { font-weight: 700; color: var(--color-blue); font-size: 0.8rem; margin-bottom: 2px; }
         .sdgs-timeline-arrow { color: #94A3B8; font-size: 0.875rem; }
         .sdgs-goal-dots { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.625rem; }
-        .sdgs-goal-dot {
+        .sdgs-pillars-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.625rem; }
+        @media (max-width: 640px) { .sdgs-pillars-grid { grid-template-columns:1fr; } }
+                .sdgs-goal-dot {
             width: 32px; height: 32px; border-radius: 5px;
             display: flex; align-items: center; justify-content: center;
             font-size: 0.65rem; font-weight: 800; color: white; line-height: 1;
@@ -918,7 +920,7 @@
 
             <div class="sdgs-info-section">
                 <h4>🔵 SDGs 3대 축</h4>
-                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.625rem;margin-top:0.5rem;">
+                <div class="sdgs-pillars-grid" style="margin-top:0.5rem;">
                     <div style="background:#EFF6FF;border:1px solid #DBEAFE;border-radius:8px;padding:0.875rem;text-align:center;">
                         <p style="font-size:1.375rem;">💰</p>
                         <p style="font-weight:700;font-size:0.8rem;color:#1e40af;margin-top:0.25rem;">경제 발전</p>
@@ -1437,7 +1439,7 @@ function openSdgsInfoModal() {
     const el = document.getElementById('sdgs-info-goal-dots');
     if (el) {
         el.innerHTML = SDG_DATA.map(g =>
-            `<div class="sdgs-goal-dot" style="background:${g.color};" title="SDG ${g.id}: ${g[currentLang].title}">${g.id}</div>`
+            `<div class="sdgs-goal-dot" style="background:${g.color};" title="SDG ${g.id}: ${(g[currentLang] || g.ko).title}">${g.id}</div>`
         ).join('');
     }
     document.getElementById('sdgs-info-modal').classList.add('active');
@@ -1468,7 +1470,7 @@ function renderSdgsDictionary() {
     const html = SDG_DATA.map(function(goal) {
         const g = goal[currentLang] || goal.ko;
         const targets = g.targets || (goal.en && goal.en.targets) || [];
-        const id = Number(goal.id);
+        const id = goal.id;
         const goalNum = id < 10 ? '0' + id : String(id);
         const pastelBg = hexAlpha(goal.color, 0.12);
         const pastelHover = hexAlpha(goal.color, 0.18);
@@ -1504,7 +1506,7 @@ function renderSdgsDictionary() {
         el.addEventListener('click', function(e) {
             const header = e.target.closest('.sdg-dict-header[data-dict-id]');
             if (!header) return;
-            toggleDictItem(Number(header.dataset.dictId));
+            toggleDictItem(parseInt(header.dataset.dictId, 10));
         });
     }
 }
@@ -1526,29 +1528,34 @@ function closeGuideModal() { document.getElementById('guide-modal').classList.re
 // ── CART STORAGE (fix: always re-hydrate from SDG_DATA by id) ─────────────────
 const CART_KEY = 'sdg-cart-v2';
 
+function normalizeGoalId(value) {
+    const parsed = parseInt(String(value), 10);
+    return Number.isFinite(parsed) ? parsed : NaN;
+}
+
 function getCart() {
     try {
         const raw = localStorage.getItem(CART_KEY);
         if (raw) {
             const ids = JSON.parse(raw);
             if (Array.isArray(ids)) {
-                return ids.map(id => SDG_DATA.find(g => g.id === id)).filter(Boolean);
+                return ids.map(id => SDG_DATA.find(g => g.id === normalizeGoalId(id))).filter(Boolean);
             }
         }
         // Migrate old format
         const old = localStorage.getItem('sdg-cart-storage');
         if (old) {
             const items = JSON.parse(old).state?.items || [];
-            const ids = items.map(item => item.id).filter(Boolean);
+            const ids = items.map(item => normalizeGoalId(item && item.id)).filter(Number.isFinite);
             localStorage.setItem(CART_KEY, JSON.stringify(ids));
             localStorage.removeItem('sdg-cart-storage');
-            return ids.map(id => SDG_DATA.find(g => g.id === id)).filter(Boolean);
+            return ids.map(id => SDG_DATA.find(g => g.id === normalizeGoalId(id))).filter(Boolean);
         }
     } catch(e) {}
     return [];
 }
 function saveCart(goals) {
-    localStorage.setItem(CART_KEY, JSON.stringify(goals.map(g => g.id)));
+    localStorage.setItem(CART_KEY, JSON.stringify(goals.map(g => normalizeGoalId(g.id)).filter(Number.isFinite)));
     updateCartBadge();
     updateCartBar();
 }
@@ -1625,11 +1632,31 @@ function updateCarouselText() {
         if (q('btn'))   q('btn').textContent   = s.btn;
     });
 }
+
+let touchStartX = null;
+let touchEndX = null;
+function onCarouselTouchStart(e) {
+    touchStartX = e.changedTouches[0].clientX;
+}
+function onCarouselTouchEnd(e) {
+    touchEndX = e.changedTouches[0].clientX;
+    if (touchStartX === null || touchEndX === null) return;
+    const delta = touchEndX - touchStartX;
+    if (Math.abs(delta) < 40) return;
+    pauseCarousel();
+    if (delta < 0) nextSlide();
+    else previousSlide();
+    touchStartX = null;
+    touchEndX = null;
+}
+
 // 캐러셀 버튼 이벤트 위임 (3개 슬라이드 각각 다른 동작 보장)
 function initCarouselButtons() {
     const container = document.getElementById('carousel-container');
     if (!container || container._btnInit) return;
     container._btnInit = true;
+    container.addEventListener('touchstart', onCarouselTouchStart, { passive: true });
+    container.addEventListener('touchend', onCarouselTouchEnd, { passive: true });
     container.addEventListener('click', function(e) {
         const btn = e.target.closest('button[data-slide-action]');
         if (!btn) return;
@@ -1665,7 +1692,7 @@ function renderSDGCards() {
     if (!grid) return;
     const html = SDG_DATA.map(function(goal) {
         const g = goal[currentLang] || goal.ko;
-        const id = Number(goal.id);
+        const id = goal.id;
         const goalNum = id < 10 ? '0' + id : String(id);
         const inCart = isInCart(id);
         const pastelBg = hexAlpha(goal.color, 0.13);
@@ -1702,8 +1729,8 @@ function initCardClickHandler() {
         const btn = e.target.closest('button[data-action]');
         if (!btn) return;
         const action = btn.dataset.action;
-        const id = Number(btn.dataset.id);
-        if (!id) return;
+        const id = parseInt(btn.dataset.id, 10);
+        if (Number.isNaN(id)) return;
         if (action === 'select') addToCart(id);
         else if (action === 'deselect') { saveCart(getCart().filter(g => g.id !== id)); renderSDGCards(); }
         else if (action === 'quick') quickPurchase(id);
