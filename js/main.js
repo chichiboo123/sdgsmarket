@@ -55,7 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initCanvas();
 
     startCarousel();
-    setInterval(() => {
-        if (document.getElementById('home-page').classList.contains('active')) updateCartBar();
-    }, 300);
+
+    // 다른 탭에서 장바구니 변경 시 동기화
+    window.addEventListener('storage', e => {
+        if (e.key === CART_KEY) {
+            updateCartBadge();
+            updateCartBar();
+            renderSDGCards();
+        }
+    });
 });

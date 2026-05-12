@@ -64,7 +64,10 @@ function applyTranslations() {
         `<label class="form-check"><input type="checkbox" name="paymentMethod" value="${T[currentLang].paymentValues[i]}"><span>${m}</span></label>`
     ).join('');
     const pr = document.getElementById('plan-radios');
-    if (pr) pr.innerHTML = T[currentLang].planMethods.map((m, i) =>
-        `<label class="form-radio"><input type="radio" name="planMethod" value="${T[currentLang].planValues[i]}" ${i===0?'checked':''} onchange="updatePlanMethod()"><span>${m}</span></label>`
-    ).join('');
+    if (pr) {
+        pr.innerHTML = T[currentLang].planMethods.map((m, i) =>
+            `<label class="form-radio"><input type="radio" name="planMethod" value="${T[currentLang].planValues[i]}" ${i===0?'checked':''} onchange="updatePlanMethod()"><span>${m}</span></label>`
+        ).join('');
+        updatePlanMethod();
+    }
 }

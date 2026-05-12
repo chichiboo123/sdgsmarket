@@ -1,4 +1,12 @@
 // ── RECEIPT ───────────────────────────────────────────────────────────────────
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
 function showReceiptModal(data) {
     window._receiptData = data;
     document.getElementById('receipt-content').innerHTML = `
@@ -10,9 +18,9 @@ function showReceiptModal(data) {
         <div class="receipt-section">
             <h3>${t('receiptOrdererInfo')}</h3>
             <div class="receipt-infobox">
-                <p><strong>${t('receiptName')}</strong> ${data.student.name}</p>
-                <p><strong>${t('receiptSchool')}</strong> ${data.student.school}</p>
-                <p><strong>${t('receiptGrade')}</strong> ${T[currentLang].gradeOption(data.student.grade)} ${data.student.class}</p>
+                <p><strong>${t('receiptName')}</strong> ${escapeHtml(data.student.name)}</p>
+                <p><strong>${t('receiptSchool')}</strong> ${escapeHtml(data.student.school)}</p>
+                <p><strong>${t('receiptGrade')}</strong> ${T[currentLang].gradeOption(data.student.grade)} ${escapeHtml(data.student.class)}</p>
             </div>
         </div>
         <div class="receipt-section">
@@ -27,7 +35,7 @@ function showReceiptModal(data) {
         </div>
         ${data.actionPlan.text||data.actionPlan.drawing ? `<div class="receipt-section">
             <h3>${t('receiptPlanTitle')}</h3>
-            ${data.actionPlan.text ? `<div style="background:#EFF6FF;padding:0.875rem;border-radius:6px;font-size:0.8rem;white-space:pre-wrap;margin-bottom:0.5rem;">${data.actionPlan.text}</div>` : ''}
+            ${data.actionPlan.text ? `<div style="background:#EFF6FF;padding:0.875rem;border-radius:6px;font-size:0.8rem;white-space:pre-wrap;margin-bottom:0.5rem;">${escapeHtml(data.actionPlan.text)}</div>` : ''}
             ${data.actionPlan.drawing ? `<div style="background:var(--color-bg);padding:0.875rem;border-radius:6px;">
                 <p style="font-size:0.75rem;color:var(--color-text-sub);margin-bottom:0.375rem;">${t('receiptDrawingTitle')}</p>
                 <img src="${data.actionPlan.drawing}" style="max-width:100%;border:1px solid #EBEBEB;border-radius:4px;" alt="drawing">
