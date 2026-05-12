@@ -206,7 +206,7 @@
         .carousel-arrow:hover { background: rgba(255,255,255,0.5); }
         .carousel-arrow.left { left: 0.75rem; }
         .carousel-arrow.right { right: 0.75rem; }
-        @media (max-width: 480px) { .carousel-arrow { display: none; } }
+        @media (max-width: 480px) { .carousel-arrow { width: 36px; height: 36px; background: rgba(17,24,39,0.45); } }
 
         /* ── SECTION TITLE ── */
         .section-title { text-align: center; margin-bottom: 1.25rem; }
@@ -1439,7 +1439,7 @@ function openSdgsInfoModal() {
     const el = document.getElementById('sdgs-info-goal-dots');
     if (el) {
         el.innerHTML = SDG_DATA.map(g =>
-            `<div class="sdgs-goal-dot" style="background:${g.color};" title="SDG ${normalizeGoalId(g.id)}: ${(g[currentLang] || g.ko).title}">${normalizeGoalId(g.id)}</div>`
+            `<div class="sdgs-goal-dot" style="background:${g.color};" title="SDG ${g.id}: ${(g[currentLang] || g.ko).title}">${g.id}</div>`
         ).join('');
     }
     document.getElementById('sdgs-info-modal').classList.add('active');
@@ -1470,9 +1470,8 @@ function renderSdgsDictionary() {
     const html = SDG_DATA.map(function(goal) {
         const g = goal[currentLang] || goal.ko;
         const targets = g.targets || (goal.en && goal.en.targets) || [];
-        const id = normalizeGoalId(goal.id);
-        const safeId = Number.isFinite(id) ? id : 0;
-        const goalNum = safeId < 10 ? '0' + safeId : String(safeId);
+        const id = goal.id;
+        const goalNum = id < 10 ? '0' + id : String(id);
         const pastelBg = hexAlpha(goal.color, 0.12);
         const pastelHover = hexAlpha(goal.color, 0.18);
 
@@ -1507,9 +1506,7 @@ function renderSdgsDictionary() {
         el.addEventListener('click', function(e) {
             const header = e.target.closest('.sdg-dict-header[data-dict-id]');
             if (!header) return;
-            const parsedId = normalizeGoalId(header.dataset.dictId);
-            if (!Number.isFinite(parsedId)) return;
-            toggleDictItem(parsedId);
+            toggleDictItem(parseInt(header.dataset.dictId, 10));
         });
     }
 }
@@ -1532,12 +1529,8 @@ function closeGuideModal() { document.getElementById('guide-modal').classList.re
 const CART_KEY = 'sdg-cart-v2';
 
 function normalizeGoalId(value) {
-    if (typeof value === 'number' && Number.isFinite(value)) return value;
-    if (typeof value === 'string') {
-        const m = value.match(/\d+/);
-        if (m) return Number(m[0]);
-    }
-    return NaN;
+    const parsed = parseInt(String(value), 10);
+    return Number.isFinite(parsed) ? parsed : NaN;
 }
 
 function getCart() {
@@ -1699,9 +1692,8 @@ function renderSDGCards() {
     if (!grid) return;
     const html = SDG_DATA.map(function(goal) {
         const g = goal[currentLang] || goal.ko;
-        const id = normalizeGoalId(goal.id);
-        const safeId = Number.isFinite(id) ? id : 0;
-        const goalNum = safeId < 10 ? '0' + safeId : String(safeId);
+        const id = goal.id;
+        const goalNum = id < 10 ? '0' + id : String(id);
         const inCart = isInCart(id);
         const pastelBg = hexAlpha(goal.color, 0.13);
         const titleColor = darkenHex(goal.color);
@@ -1737,8 +1729,8 @@ function initCardClickHandler() {
         const btn = e.target.closest('button[data-action]');
         if (!btn) return;
         const action = btn.dataset.action;
-        const id = normalizeGoalId(btn.dataset.id);
-        if (!Number.isFinite(id)) return;
+        const id = parseInt(btn.dataset.id, 10);
+        if (Number.isNaN(id)) return;
         if (action === 'select') addToCart(id);
         else if (action === 'deselect') { saveCart(getCart().filter(g => g.id !== id)); renderSDGCards(); }
         else if (action === 'quick') quickPurchase(id);
