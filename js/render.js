@@ -67,10 +67,8 @@ function quickPurchase(id) {
         const goal = SDG_DATA.find(g => g.id === id);
         if (goal) {
             const cart = getCart();
-            if (!cart.find(g => g.id === id)) {
-                cart.push(goal);
-                saveCart(cart);
-            }
+            cart.push(goal);
+            saveCart(cart);
         }
     }
     navigateTo('checkout');
@@ -91,7 +89,7 @@ function renderCartPage() {
     el.innerHTML = `
         <div class="space-y mb-4">
             ${cart.map(goal => {
-                const g = goal[currentLang];
+                const g = goal[currentLang] || goal.ko;
                 return `<div class="card"><div class="card-body" style="padding:1rem 1.25rem;">
                     <div class="flex items-center justify-between gap-2">
                         <div class="flex items-center gap-2">
@@ -121,7 +119,7 @@ function renderCheckoutPage() {
     if (cart.length === 0) { navigateTo('home'); return; }
     const el = document.getElementById('checkout-items');
     if (el) el.innerHTML = cart.map(item => {
-        const g = item[currentLang];
+        const g = item[currentLang] || item.ko;
         return `<div class="flex items-center gap-2" style="padding:0.75rem;background:var(--color-bg);border-radius:6px;border:1px solid #EBEBEB;">
             <span style="font-size:1.5rem;flex-shrink:0;">${item.icon}</span>
             <div>

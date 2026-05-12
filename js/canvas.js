@@ -34,7 +34,10 @@ function draw(e) {
 
 function stopDraw() { if (isDrawing) { isDrawing = false; ctx?.beginPath(); } }
 
-function clearCanvas() { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+function clearCanvas() {
+    if (!ctx || !canvas) return;
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
 
 function updatePlanMethod() {
     const m = document.querySelector('input[name="planMethod"]:checked')?.value || 'text';
