@@ -1,3 +1,30 @@
+// ── MODAL ESC / BACKDROP CLOSE ────────────────────────────────────────────────
+const MODAL_CLOSE_MAP = {
+    'guide-modal':      closeGuideModal,
+    'receipt-modal':    closeReceiptModal,
+    'completion-modal': null,          // completion은 백드롭 클릭으로는 닫지 않음
+    'sdgs-info-modal':  closeSdgsInfoModal,
+    'sdgs-dict-modal':  closeSdgsDictModal,
+};
+
+document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape') return;
+    // 가장 위에 열려 있는 모달을 닫음
+    const openModals = Object.keys(MODAL_CLOSE_MAP)
+        .filter(id => document.getElementById(id)?.classList.contains('active'));
+    if (!openModals.length) return;
+    const fn = MODAL_CLOSE_MAP[openModals[openModals.length - 1]];
+    if (fn) fn();
+});
+
+document.addEventListener('click', function(e) {
+    Object.entries(MODAL_CLOSE_MAP).forEach(([id, fn]) => {
+        if (!fn) return;
+        const modal = document.getElementById(id);
+        if (modal && modal.classList.contains('active') && e.target === modal) fn();
+    });
+});
+
 // ── GUIDE MODAL ───────────────────────────────────────────────────────────────
 function renderGuideSteps() {
     const el = document.getElementById('guide-steps');

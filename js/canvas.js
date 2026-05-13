@@ -39,6 +39,17 @@ function clearCanvas() {
     ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+// 순백 캔버스인지 확인 (그림이 없는 경우 영수증에 표시 안 함)
+function isBlankCanvas(c) {
+    if (!c) return true;
+    const cx = c.getContext('2d');
+    const data = cx.getImageData(0, 0, c.width, c.height).data;
+    for (let i = 0; i < data.length; i += 4) {
+        if (data[i] !== 255 || data[i+1] !== 255 || data[i+2] !== 255) return false;
+    }
+    return true;
+}
+
 function updatePlanMethod() {
     const m = document.querySelector('input[name="planMethod"]:checked')?.value || 'text';
     document.getElementById('text-plan').classList.toggle('hidden', m === 'drawing');

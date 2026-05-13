@@ -24,7 +24,10 @@ function setLanguage(lang) {
     renderGuideSteps();
     renderSDGCards();
     if (document.getElementById('cart-page').classList.contains('active')) renderCartPage();
-    if (document.getElementById('checkout-page').classList.contains('active')) renderCheckoutPage();
+    if (document.getElementById('checkout-page').classList.contains('active')) {
+        _checkoutLang = null;  // 언어 변경 시에는 폼 전체 재렌더 허용
+        renderCheckoutPage();
+    }
     updateCartBar();
 }
 
