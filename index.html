@@ -262,7 +262,7 @@
 </div>
 
 <!-- GUIDE MODAL -->
-<div id="guide-modal" class="modal">
+<div id="guide-modal" class="modal" onclick="if(event.target===this)closeGuideModal()">
     <div class="modal-box" style="max-width:480px;">
         <div class="modal-head">
             <h3 class="modal-head-title" data-i18n="guideTitle">사용법</h3>
@@ -275,7 +275,7 @@
 </div>
 
 <!-- RECEIPT MODAL -->
-<div id="receipt-modal" class="modal">
+<div id="receipt-modal" class="modal" onclick="if(event.target===this)closeReceiptModal()">
     <div class="modal-box" style="max-width:720px;">
         <div class="modal-head">
             <h3 class="modal-head-title" data-i18n="receiptTitle">실천 영수증</h3>

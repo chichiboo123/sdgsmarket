@@ -17,7 +17,7 @@ function handleCheckout(e) {
     const method = fd.get('planMethod') || 'text';
     showReceiptModal({
         student: { name: fd.get('name'), school: fd.get('school'), grade: fd.get('grade'), class: fd.get('class') || '' },
-        actionPlan: { method, text: fd.get('actionPlanText') || '', drawing: (method!=='text'&&canvas) ? canvas.toDataURL() : '' },
+        actionPlan: { method, text: fd.get('actionPlanText') || '', drawing: (method !== 'text' && canvas && !isBlankCanvas(canvas)) ? canvas.toDataURL() : '' },
         goals: getCart(),
         date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString()
     });

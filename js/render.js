@@ -69,6 +69,7 @@ function quickPurchase(id) {
             const cart = getCart();
             cart.push(goal);
             saveCart(cart);
+            showToast(t('toastAddTitle'), t('toastAddDesc')(goal[currentLang].title));
         }
     }
     navigateTo('checkout');
@@ -114,6 +115,8 @@ function renderCartPage() {
 }
 
 // ── CHECKOUT PAGE ─────────────────────────────────────────────────────────────
+let _checkoutLang = null;
+
 function renderCheckoutPage() {
     const cart = getCart();
     if (cart.length === 0) { navigateTo('home'); return; }
@@ -128,5 +131,24 @@ function renderCheckoutPage() {
             </div>
         </div>`;
     }).join('');
-    applyTranslations();
+    // 동일 언어면 사용자 선택(체크박스·라디오)을 유지하고 i18n 정적 텍스트만 재적용
+    if (_checkoutLang !== currentLang) {
+        _checkoutLang = currentLang;
+        applyTranslations();
+    } else {
+        // 언어는 같지만 상품 목록 외 label 텍스트만 갱신
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const v = T[currentLang][el.dataset.i18n];
+            if (typeof v === 'string') el.textContent = v;
+        });
+        document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+            const v = T[currentLang][el.dataset.i18nPh];
+            if (v) el.placeholder = v;
+        });
+        const gs = document.getElementById('grade-select');
+        if (gs) {
+            gs.options[0].textContent = t('gradeSelect');
+            for (let i = 1; i <= 6; i++) gs.options[i].textContent = t('gradeOption')(i);
+        }
+    }
 }
